@@ -6,7 +6,7 @@ import { LoginOrRegisterComponent } from './components/pages/login-or-register/l
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login-or-register',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {

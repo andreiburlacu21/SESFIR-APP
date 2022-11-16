@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Account } from 'src/app/models/account.model';
+import { AccountService } from 'src/app/services/account-service/account.service';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
 
 @Component({
@@ -18,9 +20,21 @@ export class LoginOrRegisterComponent implements OnInit {
   passwordFormControl = new FormControl('', [Validators.required]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
-  constructor(private router: Router, private notificationService: NotificationService) { }
+  accounts: Account[] = [];
+
+  constructor(
+    private router: Router, 
+    private notificationService: NotificationService,
+    private accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.accountService.getAllAccounts().subscribe({
+      next: resp => {
+        console.log(resp);
+      }, error: () => {
+        this.notificationService.showErrorNotification("There was an issue setting up the application, please refresh and try again!");
+      }
+    });
   }
 
   logIn() {

@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NotificationService } from './services/notification-service/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +14,8 @@ export class AppComponent {
   isUserLoggedId: boolean = false;
   theme = 'LIGHT'
 
-  constructor(private router: Router,
-    private _overlayContainer: OverlayContainer) {}
+  constructor(private _overlayContainer: OverlayContainer,
+    private notificationService: NotificationService) {}
 
   openOrCloseTheSideMenu(eventData: { openSideMenu: boolean }) {
     this.openSideMenu = eventData.openSideMenu;
@@ -42,8 +42,15 @@ export class AppComponent {
     }
   }
 
+  userLoggedIn(eventData: { loggedIn: boolean }) {
+    if(eventData.loggedIn) {
+      this.isUserLoggedId = true;
+    }
+  }
+
   logout() {
     // TODO: implement logout
-    this.router.navigate([`login-or-register`]);
+    this.notificationService.showSuccessNotification("See you soon!");
+    this.isUserLoggedId = false;
   }
 }

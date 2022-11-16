@@ -1,12 +1,17 @@
 <div class="app-container container-fluid h-100 m-0 p-0" [ngClass]="theme === 'LIGHT' ? 'light-theme' : 'dark-theme'">
     <app-toolbar (needToOpenSideMenu)="openOrCloseTheSideMenu($event)"></app-toolbar>
     <mat-sidenav-container class="sidenav-container">
-        <app-side-menu (themeChanged)="changeTheme($event)" [isOpened]="openSideMenu"></app-side-menu>
-        <router-outlet></router-outlet>
-        <div>
-            <button mat-mini-fab color="primary" class="fab-button" (click)="logout()">
-                <mat-icon>logout</mat-icon>
-            </button>
-        </div>
+        <app-login-or-register *ngIf="!isUserLoggedId" (login)="userLoggedIn($event)"></app-login-or-register>
+        
+        <ng-container *ngIf="isUserLoggedId">
+            <app-side-menu (themeChanged)="changeTheme($event)" [currentTheme]="theme"></app-side-menu>
+            <router-outlet></router-outlet>
+            <div>
+                <button mat-mini-fab color="primary" class="fab-button" (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                </button>
+            </div>
+        </ng-container>
+
     </mat-sidenav-container>
 </div>

@@ -8,13 +8,17 @@ import { Router } from '@angular/router';
 })
 
 export class SideMenuComponent implements OnInit {
-  @Input() isOpened: boolean = false;
+  @Input() currentTheme: String | undefined;
   @Output() themeChanged = new EventEmitter<{ changeToDarkMode: boolean }>();
   isDarkModeSelected: boolean = false;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if(this.currentTheme === 'DARK') {
+      this.isDarkModeSelected = true;
+    }
+  }
 
   changeTheme() {
     this.isDarkModeSelected = !this.isDarkModeSelected

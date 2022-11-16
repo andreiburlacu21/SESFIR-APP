@@ -9,6 +9,7 @@ import { ToolbarComponent } from './components/general-components/toolbar/toolba
 import { LogoComponent } from './components/general-components/logo/logo.component';
 import { LoginOrRegisterComponent } from './components/pages/login-or-register/login-or-register.component';
 import { HomeComponent } from './components/pages/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HomeComponent } from './components/pages/home/home.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
