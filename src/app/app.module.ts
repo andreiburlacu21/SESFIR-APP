@@ -9,7 +9,8 @@ import { ToolbarComponent } from './components/general-components/toolbar/toolba
 import { LogoComponent } from './components/general-components/logo/logo.component';
 import { LoginOrRegisterComponent } from './components/pages/login-or-register/login-or-register.component';
 import { HomeComponent } from './components/pages/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './utils/interceptor/Interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,13 @@ import { HttpClientModule } from '@angular/common/http';
     AngularMaterialModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: Interceptor,
+    multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
