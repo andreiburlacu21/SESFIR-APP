@@ -13,19 +13,20 @@ import { Role } from 'src/app/models/role';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
   private AUTH: string = "loggedIn";
   private URL: string = environment.apiBaseUrl + "Authentication/";
   private AUTH_REQUEST: string = this.URL;
   private REGISTER_REQUEST: string = this.URL + "register";
-  constructor(private http: HttpClient) {
-  }
+
+  constructor(private http: HttpClient) {}
+
   // register wi
   register(user: Account): Observable<boolean> {
     return this.http.post<boolean>(this.REGISTER_REQUEST, user);
   }
 
   authenticate(auth: Authentication){
+      console.log(auth);
       return this.http.post<TokenData>(this.AUTH_REQUEST, auth);
   }
 
@@ -76,7 +77,6 @@ export class AuthenticationService {
 
   logOut() {
     localStorage.removeItem(this.AUTH);
-
     window.location.reload();
   }
 }

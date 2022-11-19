@@ -39,31 +39,34 @@ export class LoginOrRegisterComponent implements OnInit {
   }
 
   logIn() {
-    console.log("Logging with:");
-    console.log("Email: " + this.emailFormControl.getRawValue());
-    console.log("Password: " + this.passwordFormControl.getRawValue());
+    // console.log("Logging with:");
+    // console.log("Email: " + this.emailFormControl.getRawValue());
+    // console.log("Password: " + this.passwordFormControl.getRawValue());
 
-    var username = this.emailFormControl.getRawValue() ?? "";
+    var username = this.usernameFormControl.getRawValue() ?? "";
     var password = this.passwordFormControl.getRawValue() ?? "";
 
     // TODO: implement login
 
-    this.authService.authenticate(new Authentication(username, password))
-        .subscribe( token => {
-         
-          if(token){
+    console.log(username + " " + password);
+    this.authService.authenticate(new Authentication(username, password)).subscribe({
+      next: token => {
+        if (token) {
 
-            this.authService.setAuth(token);
+          this.authService.setAuth(token);
 
-            this.login.emit({
-              loggedIn: this.authService.loggedIn()
-            });
+          this.login.emit({
+            loggedIn: this.authService.loggedIn()
+          });
 
-            this.notificationService.showSuccessNotification("Welcome!");
+          this.notificationService.showSuccessNotification("Welcome!");
 
-            this.router.navigate([`/home`]);
-          }
-        });
+          this.router.navigate([`/home`]);
+        }
+      }, error: error => {
+        console.log(error);
+      }
+    });
   }
 
   register() {
