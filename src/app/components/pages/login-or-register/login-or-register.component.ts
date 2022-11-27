@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Account } from 'src/app/models/account.model';
@@ -12,12 +12,12 @@ import { NotificationService } from 'src/app/services/notification-service/notif
   styleUrls: ['./login-or-register.component.scss']
 })
 
-export class LoginOrRegisterComponent implements OnInit {
+export class LoginOrRegisterComponent {
   @Output() login = new EventEmitter<{ loggedIn: boolean }>();
   @Output() registerData = new EventEmitter<{ email: string, username: string, password: string }>();
   userWantsToLogin: boolean = true;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  usernameFormControl = new FormControl('', [Validators.required]);
+  usernameFormControl = new FormControl('');
   passwordFormControl = new FormControl('', [Validators.required]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
@@ -28,31 +28,14 @@ export class LoginOrRegisterComponent implements OnInit {
     private notificationService: NotificationService,
     private authService: AuthenticationService) { }
 
-  ngOnInit(): void {
-    // this.accountService.getAllAccounts().subscribe({
-    //   next: resp => {
-    //     console.log(resp);
-    //   }, error: () => {
-    //     this.notificationService.showErrorNotification("There was an issue setting up the application, please refresh and try again!");
-    //   }
-    // });
-  }
-
   logIn() {
-    // console.log("Logging with:");
-    // console.log("Email: " + this.emailFormControl.getRawValue());
-    // console.log("Password: " + this.passwordFormControl.getRawValue());
-
-    var username = this.usernameFormControl.getRawValue() ?? "";
-    var password = this.passwordFormControl.getRawValue() ?? "";
+    let username: string = this.usernameFormControl.getRawValue() ?? "";
+    let password: string = this.passwordFormControl.getRawValue() ?? "";
 
     // TODO: implement login
-
-    console.log(username + " " + password);
     this.authService.authenticate(new Authentication(username, password)).subscribe({
       next: token => {
         if (token) {
-
           this.authService.setAuth(token);
 
           this.login.emit({
@@ -63,9 +46,7 @@ export class LoginOrRegisterComponent implements OnInit {
 
           this.router.navigate([`/home`]);
         }
-      }, error: error => {
-        console.log(error);
-      }
+      }, error: () => { console.log("Req failed!"); }
     });
   }
 
@@ -80,6 +61,19 @@ export class LoginOrRegisterComponent implements OnInit {
       this.notificationService.showSuccessNotification("Account created!");
       this.userWantsToLogin = true;
       // TODO: implement register 
+      let newAccount: Account = new Account();
+      newAccount.email = this.emailFormControl.getRawValue() ?? "";
+      newAccount.userName = this.usernameFormControl.getRawValue() ?? "";
+      newAccount.password = this.usernameFormControl.getRawValue() ?? "";
+      newAccount.phoneNumber = "0756514123";
+      this.authService.register(newAccount).subscribe({
+        next: resp => {
+          console.log(resp);
+        }, error: err => {
+          console.error(err);
+        }
+      }
+      );
     } else {
       this.notificationService.showSuccessNotification("Entered passwords are different!");
     }

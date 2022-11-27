@@ -1,5 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
+import { AuthenticationService } from './services/authentication-service/authentication.service';
 import { NotificationService } from './services/notification-service/notification.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class AppComponent {
   theme = 'LIGHT'
 
   constructor(private _overlayContainer: OverlayContainer,
-    private notificationService: NotificationService) {}
+    private notificationService: NotificationService,
+    private authenticationService: AuthenticationService) {}
 
   openOrCloseTheSideMenu(eventData: { openSideMenu: boolean }) {
     this.openSideMenu = eventData.openSideMenu;
@@ -50,6 +52,7 @@ export class AppComponent {
 
   logout() {
     // TODO: implement logout
+    this.authenticationService.logOut();
     this.notificationService.showSuccessNotification("See you soon!");
     this.isUserLoggedId = false;
   }

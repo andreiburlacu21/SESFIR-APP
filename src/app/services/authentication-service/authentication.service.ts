@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Account } from 'src/app/models/account.model';
 import Authentication from 'src/app/models/authentication.model';
@@ -18,16 +18,16 @@ export class AuthenticationService {
   private AUTH_REQUEST: string = this.URL;
   private REGISTER_REQUEST: string = this.URL + "register";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // register wi
   register(user: Account): Observable<boolean> {
     return this.http.post<boolean>(this.REGISTER_REQUEST, user);
   }
 
-  authenticate(auth: Authentication){
-      console.log(auth);
-      return this.http.post<TokenData>(this.AUTH_REQUEST, auth);
+  authenticate(auth: Authentication) {
+    console.log(auth);
+    return this.http.post<TokenData>(this.AUTH_REQUEST, auth);
   }
 
   isAdmin(): boolean {
@@ -41,8 +41,13 @@ export class AuthenticationService {
 
   getAccessToken(): string {
     const value = localStorage.getItem(this.AUTH);
-    if (!!value)
+
+
+
+    if (value) {
+      console.log("Returned: ",  value);
       return (JSON.parse(value) as TokenData).accessToken;
+    }
 
     return "NULL";
   }
@@ -50,8 +55,11 @@ export class AuthenticationService {
   setAuth(tokenData: TokenData) {
     if (tokenData.userName == "" && tokenData.accessToken == "")
       localStorage.removeItem(this.AUTH);
-    else
-      localStorage.setItem(this.AUTH, JSON.stringify(TokenData));
+    else {
+      localStorage.removeItem(this.AUTH);
+      localStorage.setItem(this.AUTH, JSON.stringify(tokenData));
+      console.log("Baga token");
+    }
   }
 
   loggedIn(): boolean {
