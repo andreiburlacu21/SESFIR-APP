@@ -44,7 +44,7 @@ export class AuthenticationService {
 
 
 
-    if (value) {
+    if (value !== 'undefined' && value ) {
       console.log("Returned: ",  value);
       return (JSON.parse(value) as TokenData).accessToken;
     }
@@ -56,7 +56,7 @@ export class AuthenticationService {
     if (tokenData.userName == "" && tokenData.accessToken == "")
       localStorage.removeItem(this.AUTH);
     else {
-      localStorage.removeItem(this.AUTH);
+      //localStorage.removeItem(this.AUTH);
       localStorage.setItem(this.AUTH, JSON.stringify(tokenData));
       console.log("Baga token");
     }
