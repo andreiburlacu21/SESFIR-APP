@@ -11,6 +11,10 @@ import { LoginOrRegisterComponent } from './components/pages/login-or-register/l
 import { HomeComponent } from './components/pages/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './utils/interceptor/Interceptor';
+import { AccountsComponent } from './components/pages/admin-pages/accounts/accounts.component';
+import { BookingsComponent } from './components/pages/admin-pages/bookings/bookings.component';
+import { LocationsComponent } from './components/pages/admin-pages/locations/locations.component';
+import { ReviewsComponent } from './components/pages/admin-pages/reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { Interceptor } from './utils/interceptor/Interceptor';
     ToolbarComponent,
     LogoComponent,
     LoginOrRegisterComponent,
-    HomeComponent
+    HomeComponent,
+    AccountsComponent,
+    BookingsComponent,
+    LocationsComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule,

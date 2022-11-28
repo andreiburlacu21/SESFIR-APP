@@ -1,4 +1,4 @@
-<div class="home-container">
+<div>
     <div *ngIf="!isAdminLoggedIn" class="d-flex justify-content-center">
         <mat-form-field class="search-input-field mt-3" appearance="outline">
             <mat-label>What are you looking for?</mat-label>
@@ -7,8 +7,8 @@
         </mat-form-field>
     </div>
 
-    <div *ngIf="isAdminLoggedIn" class="d-flex justify-content-center card-group gap-5">
-        <mat-card class="card-item hover-underline-animation">
+    <div *ngIf="isAdminLoggedIn" class="d-flex justify-content-center card-group gap-5 cards-container">
+        <mat-card class="card-item hover-underline-animation" [routerLink]="['/accounts']">
             <mat-card-content class="content text-center align-items-center mt-5">
                 <mat-icon class="card-icon">
                     group
@@ -20,7 +20,7 @@
             </mat-card-footer>
         </mat-card>
 
-        <mat-card class="card-item hover-underline-animation">
+        <mat-card class="card-item hover-underline-animation" [routerLink]="['/bookings']">
             <mat-card-content class="content text-center align-items-center mt-5">
                 <mat-icon class="card-icon">
                     book_online
@@ -32,7 +32,7 @@
             </mat-card-footer>
         </mat-card>
 
-        <mat-card class="card-item hover-underline-animation">
+        <mat-card class="card-item hover-underline-animation" [routerLink]="['/locations']">
             <mat-card-content class="content text-center align-items-center mt-5">
                 <mat-icon class="card-icon">
                     map
@@ -44,7 +44,7 @@
             </mat-card-footer>
         </mat-card>
 
-        <mat-card class="card-item hover-underline-animation">
+        <mat-card class="card-item hover-underline-animation" [routerLink]="['/reviews']">
             <mat-card-content class="content text-center align-items-center mt-5">
                 <mat-icon class="card-icon">
                     thumbs_up_down
