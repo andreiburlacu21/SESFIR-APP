@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiBaseUrl: "https://localhost:7226/SESFIR/",
-  isAdmin: false
+  isAdmin: false,
+  theme: 'LIGHT'
 };
 
 /*

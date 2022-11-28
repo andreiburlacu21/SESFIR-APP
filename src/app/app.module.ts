@@ -15,6 +15,7 @@ import { AccountsComponent } from './components/pages/admin-pages/accounts/accou
 import { BookingsComponent } from './components/pages/admin-pages/bookings/bookings.component';
 import { LocationsComponent } from './components/pages/admin-pages/locations/locations.component';
 import { ReviewsComponent } from './components/pages/admin-pages/reviews/reviews.component';
+import { AccountDialogComponent } from './components/pages/admin-pages/accounts/account-dialog/account-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ReviewsComponent } from './components/pages/admin-pages/reviews/reviews
     AccountsComponent,
     BookingsComponent,
     LocationsComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    AccountDialogComponent
   ],
   imports: [
     BrowserModule,

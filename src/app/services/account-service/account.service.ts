@@ -17,6 +17,5 @@ export class AccountService {
 
   getAllAccounts(): Observable<Account[]> {
     return this.httpClient.get<Account[]>(this.reqPath + "/all");
-    // return this.httpClient.get<Account[]>(`${this.reqPath}/all`);
   }
 }

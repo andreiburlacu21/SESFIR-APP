@@ -1,1 +1,55 @@
-<p>accounts works!</p>
+<div class="row d-flex justify-content-center">
+    <mat-card class="row col-10 mt-3">
+        <div class="d-flex align-items-center">
+            <span class="float-start title">Accounts</span>
+            <button mat-mini-fab class="action-fab-btn ms-auto add-btn">
+                <mat-icon> add </mat-icon>
+            </button>
+            <span>Add new account</span>
+        </div>
+    </mat-card>
+    <mat-card class="table-container col-10 mt-2">
+        <table class="table text-center primary-text">
+            <thead>
+                <tr>
+                    <th scope="col"> Username </th>
+                    <th scope="col"> Email </th>
+                    <th scope="col"> Password </th>
+                    <th scope="col"> Phone Number </th>
+                    <th scope="col"> Role </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let account of accounts" class="align-items-center">
+                    <td class="pt-3">
+                        {{ account.userName }}
+                    </td>
+                    <td class="pt-3">
+                        {{ account.email }}
+                    </td>
+                    <td class="pt-3">
+                        {{ account.password }}
+                    </td>
+                    <td class="pt-3">
+                        {{ account.phoneNumber }}
+                    </td>
+                    <td class="pt-3">
+                        {{ account.role }}
+                    </td>
+                    <td>
+                        <button mat-mini-fab class="action-fab-btn edit-btn">
+                            <mat-icon> edit </mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button mat-mini-fab class="action-fab-btn delete-btn">
+                            <mat-icon> delete </mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </mat-card>
+</div>

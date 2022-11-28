@@ -43,6 +43,7 @@ export class AppComponent {
       this.theme = 'LIGHT';
       this.changeThemeInOverlayContainer('light-theme')
     }
+    environment.theme = this.theme;
   }
 
   userLoggedIn(eventData: { loggedIn: boolean }) {

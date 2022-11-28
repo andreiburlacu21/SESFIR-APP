@@ -1,0 +1,29 @@
+.title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.table-container {
+    height: 525px;
+    overflow-y: auto;
+}
+
+.action-fab-btn {
+    transform: scale(0.7);
+}
+
+.edit-btn {
+    background-color: rgb(212, 170, 31) !important;
+}
+
+.delete-btn {
+    background-color: rgb(192, 42, 42) !important;
+}
+
+.add-btn {
+    background-color: rgb(23, 169, 44) !important;
+}
+
+.card-bg-color {
+    background-color: rgb(57,57,57) !important;
+}

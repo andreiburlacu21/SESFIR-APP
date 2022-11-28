@@ -63,3 +63,16 @@ body {
 .active-icon-fill {
   color: #4885BA !important;
 }
+
+// Scroll bar
+
+::-webkit-scrollbar {
+  width: 4px;
+  overflow-y: scroll;
+  background: transparent;
+  border: 0.3px solid black;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4885BA;
+}
