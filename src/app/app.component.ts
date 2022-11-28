@@ -1,5 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { AuthenticationService } from './services/authentication-service/authentication.service';
 import { NotificationService } from './services/notification-service/notification.service';
 
@@ -47,11 +48,13 @@ export class AppComponent {
   userLoggedIn(eventData: { loggedIn: boolean }) {
     if(eventData.loggedIn) {
       this.isUserLoggedId = true;
+      if(this.authenticationService.isAdmin()) {
+        environment.isAdmin = true;
+      }
     }
   }
 
   logout() {
-    // TODO: implement logout
     this.authenticationService.logOut();
     this.notificationService.showSuccessNotification("See you soon!");
     this.isUserLoggedId = false;

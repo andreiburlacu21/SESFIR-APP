@@ -32,9 +32,9 @@ export class LoginOrRegisterComponent {
     let username: string = this.usernameFormControl.getRawValue() ?? "";
     let password: string = this.passwordFormControl.getRawValue() ?? "";
 
-    // TODO: implement login
     this.authService.authenticate(new Authentication(username, password)).subscribe({
       next: token => {
+        console.log(token);
         if (token) {
           this.authService.setAuth(token);
 
@@ -46,7 +46,7 @@ export class LoginOrRegisterComponent {
 
           this.router.navigate([`/home`]);
         }
-      }, error: () => { console.log("Req failed!"); }
+      }, error: () => { }
     });
   }
 

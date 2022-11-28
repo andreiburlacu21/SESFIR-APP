@@ -1,7 +1,59 @@
-<div class="d-flex justify-content-center">
-    <mat-form-field class="search-input-field mt-3" appearance="outline">
-        <mat-label>What are you looking for?</mat-label>
-        <input matInput>
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+<div class="home-container">
+    <div *ngIf="!isAdminLoggedIn" class="d-flex justify-content-center">
+        <mat-form-field class="search-input-field mt-3" appearance="outline">
+            <mat-label>What are you looking for?</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="isAdminLoggedIn" class="d-flex justify-content-center card-group gap-5">
+        <mat-card class="card-item hover-underline-animation">
+            <mat-card-content class="content text-center align-items-center mt-5">
+                <mat-icon class="card-icon">
+                    group
+                </mat-icon>
+            </mat-card-content>
+
+            <mat-card-footer class="text-center m-2">
+                Accounts
+            </mat-card-footer>
+        </mat-card>
+
+        <mat-card class="card-item hover-underline-animation">
+            <mat-card-content class="content text-center align-items-center mt-5">
+                <mat-icon class="card-icon">
+                    book_online
+                </mat-icon>
+            </mat-card-content>
+
+            <mat-card-footer class="text-center m-2">
+                Bookings
+            </mat-card-footer>
+        </mat-card>
+
+        <mat-card class="card-item hover-underline-animation">
+            <mat-card-content class="content text-center align-items-center mt-5">
+                <mat-icon class="card-icon">
+                    map
+                </mat-icon>
+            </mat-card-content>
+
+            <mat-card-footer class="content text-center text-center m-2">
+                Locations
+            </mat-card-footer>
+        </mat-card>
+
+        <mat-card class="card-item hover-underline-animation">
+            <mat-card-content class="content text-center align-items-center mt-5">
+                <mat-icon class="card-icon">
+                    thumbs_up_down
+                </mat-icon>
+            </mat-card-content>
+
+            <mat-card-footer class="text-center m-2">
+                Reviews
+            </mat-card-footer>
+        </mat-card>
+    </div>
 </div>

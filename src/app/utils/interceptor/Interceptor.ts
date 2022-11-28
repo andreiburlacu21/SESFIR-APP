@@ -13,6 +13,8 @@ export class Interceptor implements HttpInterceptor {
 
     // Add Auth Token
     const Token = this.authService.getAccessToken();
+    console.log('A ajuns aici!');
+    
     req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${Token}`

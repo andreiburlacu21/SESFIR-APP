@@ -1,3 +1,24 @@
+.home-container {
+    margin-top: 80px;
+}
+
 .search-input-field {
     width: 250px;
+}
+
+.card-item {
+    height: 300px;
+    width: 250px;
+}
+
+.card-item:hover {
+    cursor: pointer;
+}
+
+.card-icon {
+    transform: scale(2);
+}
+
+.content {
+    height: 180px;
 }
