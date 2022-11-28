@@ -13,7 +13,6 @@ export class Interceptor implements HttpInterceptor {
 
     // Add Auth Token
     const Token = this.authService.getAccessToken();
-    console.log('A ajuns aici!');
     
     req = req.clone({
       setHeaders: {
@@ -38,7 +37,6 @@ export class Interceptor implements HttpInterceptor {
         // PROFILING
         finalize(() => {
           const profilingMsg = `${req.method} "${req.urlWithParams}"`;
-          //console.log(profilingMsg);
         })
       );
   }

@@ -13,6 +13,7 @@ import { NotificationService } from 'src/app/services/notification-service/notif
 })
 
 export class LoginOrRegisterComponent {
+  isLoading: boolean = false;
   @Output() login = new EventEmitter<{ loggedIn: boolean }>();
   @Output() registerData = new EventEmitter<{ email: string, username: string, password: string }>();
   userWantsToLogin: boolean = true;
@@ -29,12 +30,13 @@ export class LoginOrRegisterComponent {
     private authService: AuthenticationService) { }
 
   logIn() {
+    this.isLoading = true;
+
     let username: string = this.usernameFormControl.getRawValue() ?? "";
     let password: string = this.passwordFormControl.getRawValue() ?? "";
 
     this.authService.authenticate(new Authentication(username, password)).subscribe({
       next: token => {
-        console.log(token);
         if (token) {
           this.authService.setAuth(token);
 
@@ -42,6 +44,7 @@ export class LoginOrRegisterComponent {
             loggedIn: this.authService.loggedIn()
           });
 
+          this.isLoading = false;
           this.notificationService.showSuccessNotification("Welcome!");
 
           this.router.navigate([`/home`]);
@@ -51,16 +54,9 @@ export class LoginOrRegisterComponent {
   }
 
   register() {
-    console.log("Creating account with with:");
-    console.log("Email: " + this.emailFormControl.getRawValue());
-    console.log("Username: " + this.usernameFormControl.getRawValue());
-    console.log("Password: " + this.passwordFormControl.getRawValue());
-    console.log("Confirmed password: " + this.confirmPasswordFormControl.getRawValue());
-
     if (this.passwordFormControl.getRawValue() === this.confirmPasswordFormControl.getRawValue()) {
       this.notificationService.showSuccessNotification("Account created!");
       this.userWantsToLogin = true;
-      // TODO: implement register 
       let newAccount: Account = new Account();
       newAccount.email = this.emailFormControl.getRawValue() ?? "";
       newAccount.userName = this.usernameFormControl.getRawValue() ?? "";

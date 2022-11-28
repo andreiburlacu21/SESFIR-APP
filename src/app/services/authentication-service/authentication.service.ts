@@ -26,7 +26,6 @@ export class AuthenticationService {
   }
 
   authenticate(auth: Authentication) {
-    console.log(auth);
     return this.http.post<TokenData>(this.AUTH_REQUEST, auth);
   }
 
@@ -43,7 +42,6 @@ export class AuthenticationService {
     const value = localStorage.getItem(this.AUTH);
 
     if (value !== 'undefined' && value ) {
-      console.log("Returned: ",  value);
       return (JSON.parse(value) as TokenData).accessToken;
     }
 

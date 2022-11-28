@@ -9,6 +9,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule ({
     exports: [
@@ -22,7 +25,10 @@ import { MatButtonModule } from '@angular/material/button';
         FormsModule,
         ReactiveFormsModule,
         MatSlideToggleModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatProgressBarModule
     ]
 })
 

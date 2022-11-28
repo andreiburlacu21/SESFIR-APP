@@ -18,4 +18,16 @@ export class AccountService {
   getAllAccounts(): Observable<Account[]> {
     return this.httpClient.get<Account[]>(this.reqPath + "/all");
   }
+
+  addAccount(account: Account): Observable<Account> {
+    return this.httpClient.post<Account>(this.reqPath + "/insert", account);
+  }
+
+  updateAccount(account: Account): Observable<Account> {
+    return this.httpClient.put<Account>(this.reqPath + "/update", account);
+  }
+
+  deleteAccount(accountId: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(this.reqPath + "/" + accountId);
+  }
 }

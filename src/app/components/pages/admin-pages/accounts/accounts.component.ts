@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Account } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account-service/account.service';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
-import { environment } from 'src/environments/environment';
+import { Action } from 'src/app/utils/interceptor/admin-actions';
+import { AccountDialogComponent } from './account-dialog/account-dialog.component';
 
 @Component({
   selector: 'app-accounts',
@@ -15,23 +17,84 @@ export class AccountsComponent implements OnInit {
   accounts: Account[] = [];
   displayedColumns: string[] = ["Username", "Email", "Password", "Phone Number", "Role"];
 
-  constructor(private readonly accountService: AccountService, private readonly notificationService: NotificationService) { }
+  constructor(private readonly accountService: AccountService,
+    private readonly notificationService: NotificationService,
+    private readonly dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     this.getAllAccounts();
   }
 
   private getAllAccounts() {
+    this.accounts = [];
+    this.isLoading = true;
     this.accountService.getAllAccounts().subscribe({
       next: resp => {
         this.accounts = resp;
-        console.log(this.accounts);
         this.isLoading = false;
       },
       error: () => {
         this.notificationService.showErrorNotification("There was an error while loading existing accounts!");
         this.isLoading = false;
+      }
+    });
+  }
+
+  addAccount() {
+    let dialogRef = this.dialog.open(AccountDialogComponent, {
+      width: '500px',
+      data: {
+        action: Action.ADD
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(newAccount => {
+      if (newAccount.data) {
+        this.accountService.addAccount(newAccount.data).subscribe(resp => {
+          this.notificationService.showSuccessNotification("Account added!");
+          this.getAllAccounts();
+        });
+      }
+    });
+  }
+
+  editAccount(account: Account) {
+    let dialogRef = this.dialog.open(AccountDialogComponent, {
+      width: '500px',
+      data: {
+        action: Action.UPDATE,
+        account: account
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(updatedAccount => {
+      if(updatedAccount.data) {
+        this.accountService.updateAccount(updatedAccount.data).subscribe(resp => {
+          if(resp) {
+            this.notificationService.showSuccessNotification("Account updated!");
+            this.getAllAccounts();
+          }
+        });
+      }
+    });
+  }
+
+  deleteAccount(account: Account) {
+    let dialogRef = this.dialog.open(AccountDialogComponent, {
+      data: {
+        action: Action.DELETE,
+        account: account
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(accountId => {
+      if(accountId.data) {
+        this.accountService.deleteAccount(accountId.data).subscribe(resp => {
+          if(resp) {
+            this.notificationService.showSuccessNotification("Account deleted!");
+            this.getAllAccounts();
+          }
+        });
       }
     });
   }

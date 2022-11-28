@@ -14,11 +14,22 @@ export class AppComponent {
   title = 'SESFIR';
   openSideMenu: boolean = false;
   isUserLoggedId: boolean = false;
-  theme = 'LIGHT'
+  theme: string = 'LIGHT';
 
   constructor(private _overlayContainer: OverlayContainer,
     private notificationService: NotificationService,
-    private authenticationService: AuthenticationService) {}
+    private authenticationService: AuthenticationService) {
+      if(!localStorage.getItem('theme') === null) {
+        this.updateThemeInLocalStorage();
+      } else {
+        this.theme = localStorage.getItem('theme') as string;
+        if(this.theme === 'LIGHT') {
+          this.changeThemeInOverlayContainer('light-theme');
+        } else {
+          this.changeThemeInOverlayContainer('dark-theme');
+        }
+      }
+    }
 
   openOrCloseTheSideMenu(eventData: { openSideMenu: boolean }) {
     this.openSideMenu = eventData.openSideMenu;
@@ -38,12 +49,18 @@ export class AppComponent {
   changeTheme(eventData: { changeToDarkMode: boolean }): void {
     if(eventData.changeToDarkMode) {
       this.theme = 'DARK';
+      this.updateThemeInLocalStorage();
       this.changeThemeInOverlayContainer('dark-theme');
     } else {
       this.theme = 'LIGHT';
+      this.updateThemeInLocalStorage();
       this.changeThemeInOverlayContainer('light-theme')
     }
     environment.theme = this.theme;
+  }
+
+  private updateThemeInLocalStorage() {
+    localStorage.setItem('theme', this.theme);
   }
 
   userLoggedIn(eventData: { loggedIn: boolean }) {
