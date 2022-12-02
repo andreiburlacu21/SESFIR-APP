@@ -19,17 +19,19 @@ export class AppComponent {
   constructor(private _overlayContainer: OverlayContainer,
     private notificationService: NotificationService,
     private authenticationService: AuthenticationService) {
-      if(!localStorage.getItem('theme') === null) {
-        this.updateThemeInLocalStorage();
+    if (!localStorage.getItem('theme') === null) {
+      this.updateThemeInLocalStorage();
+    } else {
+      this.theme = localStorage.getItem('theme') as string;
+      if (this.theme === 'LIGHT') {
+        this.changeThemeInOverlayContainer('light-theme');
       } else {
-        this.theme = localStorage.getItem('theme') as string;
-        if(this.theme === 'LIGHT') {
-          this.changeThemeInOverlayContainer('light-theme');
-        } else {
-          this.changeThemeInOverlayContainer('dark-theme');
-        }
+        this.changeThemeInOverlayContainer('dark-theme');
       }
     }
+
+    this.checkIfUserIsLoggedIn();
+  }
 
   openOrCloseTheSideMenu(eventData: { openSideMenu: boolean }) {
     this.openSideMenu = eventData.openSideMenu;
@@ -40,14 +42,14 @@ export class AppComponent {
     const themeClassesToRemove = Array.from(overlayContainerClasses);
     themeClassesToRemove.filter((item: string) => item.includes('-theme'));
 
-    if(overlayContainerClasses.length) {
+    if (overlayContainerClasses.length) {
       overlayContainerClasses.remove(...themeClassesToRemove);
     }
     overlayContainerClasses.add(theme);
   }
 
   changeTheme(eventData: { changeToDarkMode: boolean }): void {
-    if(eventData.changeToDarkMode) {
+    if (eventData.changeToDarkMode) {
       this.theme = 'DARK';
       this.updateThemeInLocalStorage();
       this.changeThemeInOverlayContainer('dark-theme');
@@ -64,11 +66,21 @@ export class AppComponent {
   }
 
   userLoggedIn(eventData: { loggedIn: boolean }) {
-    if(eventData.loggedIn) {
+    if (eventData.loggedIn) {
       this.isUserLoggedId = true;
-      if(this.authenticationService.isAdmin()) {
+      if (this.authenticationService.isAdmin()) {
         environment.isAdmin = true;
       }
+    }
+  }
+
+  checkIfUserIsLoggedIn(): void {
+    if (this.authenticationService.loggedIn()) {
+      this.isUserLoggedId = true;
+      if (this.authenticationService.isAdmin()) {
+        environment.isAdmin = true;
+      }
+      this.notificationService.showSuccessNotification("Welcome!");
     }
   }
 
