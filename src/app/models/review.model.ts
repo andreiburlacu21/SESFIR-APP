@@ -1,7 +1,7 @@
-export class Reveiw {
-    reviewId?: number
-    accountId?: number
-    locationId?: number
+export class Review {
+    reviewId?: string
+    accountId?: string
+    locationId?: string
     grade?: number
     description?: string
     date?: string

@@ -1,12 +1,5 @@
 <div>
-    <div *ngIf="!isAdminLoggedIn" class="d-flex justify-content-center">
-        <mat-form-field class="search-input-field mt-3" appearance="outline">
-            <mat-label>What are you looking for?</mat-label>
-            <input matInput>
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-    </div>
-
+    <!-- ADMIN -->
     <div *ngIf="isAdminLoggedIn" class="d-flex justify-content-center card-group gap-5 cards-container">
         <mat-card class="card-item hover-underline-animation" [routerLink]="['/accounts']">
             <mat-card-content class="content text-center align-items-center mt-5">
@@ -54,6 +47,35 @@
             <mat-card-footer class="text-center m-2">
                 Reviews
             </mat-card-footer>
+        </mat-card>
+    </div>
+
+    <!-- USER -->
+    <div *ngIf="!isAdminLoggedIn" class="row d-flex justify-content-center">
+        <mat-card class="row col-10 mt-3 d-flex justify-content-center">
+            <mat-form-field class="search-input-field" appearance="outline">
+                <mat-label>What are you looking for?</mat-label>
+                <input matInput>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </mat-card>
+
+        <mat-card class="locations-container col-10 mt-2">
+            <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel class="mb-3" *ngFor="let location of locations">
+                    <mat-expansion-panel-header class="location-header">
+                        <mat-panel-title class="mt-4 mb-4">
+                            <mat-icon class="me-2">location_on</mat-icon>
+                            {{ location.locationName }}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{ location.pricePerHour }} RON / 1h
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <button>Book</button>
+                </mat-expansion-panel>
+            </mat-accordion>
         </mat-card>
     </div>
 </div>
