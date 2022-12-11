@@ -36,10 +36,12 @@ export class DateHelper {
 
             var date1 = new Date(x[0] + "");
             var date2 = new Date(x[1] + "");
-            if (this.inDate < date1 || d < this.inDate) {
+            if (this.inDate < date1) {
                 set = false;
             }
         });
+        if(d < this.inDate)
+            return false;
         return set;
     }
 

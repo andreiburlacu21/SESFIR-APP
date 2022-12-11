@@ -5,17 +5,22 @@
     <div mat-dialog-content *ngIf="action === 'Add'">
         <div class="row justify-content-center">
             <mat-form-field appearance="outline">
-                <mat-label>Account id</mat-label>
-                <input matInput required [formControl]="accountIdFormControl">
-                <mat-error *ngIf="accountIdFormControl.hasError('required')"> Account id is <strong>required</strong>
-                </mat-error>
+                <mat-label>Account</mat-label>
+                <mat-select [formControl]="accountIdFormControl">
+                    <mat-option *ngFor="let item of accountData" [value]="item.accountId">{{item.userName}}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Location id</mat-label>
-                <input matInput required [formControl]="locationIdFormControl" (keyup)="setAvailabilityDate()">
-                <mat-error *ngIf="locationIdFormControl.hasError('required')"> Location id is <strong>required</strong>
-                </mat-error>
+                <mat-label>Location</mat-label>
+                <mat-select [formControl]="locationFormControl" (closed)="setAvailabilityDate()">
+                    <mat-option *ngFor="let item of locationData" 
+                                            [value]="item.locationId">
+                                            {{item.locationName}}
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -53,7 +58,7 @@
     <div class="d-flex" *ngIf="action === 'Add'">
         <button mat-dialog-close class="primary-action-btn action-btn">Cancel</button>
         <button class="primary-action-btn action-btn ms-auto" [disabled]="accountIdFormControl.hasError('required') || 
-        locationIdFormControl.hasError('required') || inDateFormControl.hasError('required') || 
+        locationFormControl.hasError('required') || inDateFormControl.hasError('required') || 
         outDateFormControl.hasError('required') || phoneNumberFormControl.hasError('required') || 
         totalPriceFormControl.hasError('required')"
             (click)="addBooking()">
@@ -73,8 +78,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Username</mat-label>
-                <input matInput required [formControl]="locationIdFormControl">
-                <mat-error *ngIf="locationIdFormControl.hasError('required')"> Username is <strong>required</strong>
+                <input matInput required [formControl]="locationFormControl">
+                <mat-error *ngIf="locationFormControl.hasError('required')"> Username is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
 
@@ -97,7 +102,7 @@
     <div class="d-flex" *ngIf="action === 'Edit'">
         <button mat-dialog-close class="primary-action-btn action-btn">Cancel</button>
         <button class="primary-action-btn action-btn ms-auto" [disabled]="accountIdFormControl.hasError('required') || 
-        locationIdFormControl.hasError('required') || inDateFormControl.hasError('required') || phoneNumberFormControl.hasError('required')"
+        locationFormControl.hasError('required') || inDateFormControl.hasError('required') || phoneNumberFormControl.hasError('required')"
             (click)="updateBooking()">
             Update
         </button>
