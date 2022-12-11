@@ -4,6 +4,7 @@ import { Location } from 'src/app/models/location.model';
 import { LocationService } from 'src/app/services/location-service/location.service';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
 import { Action } from 'src/app/utils/interceptor/admin-actions';
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { LocationDialogComponent } from './location-dialog/location-dialog.component';
 
 @Component({
@@ -82,7 +83,12 @@ export class LocationsComponent implements OnInit {
   }
 
   addImage(location: Location) {
-
+    let dialogRef = this.dialog.open(ImageDialogComponent, {
+      width: '500px',
+      data: {
+        location: location
+      }
+    })
   }
 
   deleteLocation(location: Location) {
