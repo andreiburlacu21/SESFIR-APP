@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from './services/authentication-service/authentication.service';
 import { NotificationService } from './services/notification-service/notification.service';
@@ -15,6 +15,7 @@ export class AppComponent {
   openSideMenu: boolean = false;
   isUserLoggedId: boolean = false;
   theme: string = 'LIGHT';
+  hideSidenav: boolean = false;
 
   constructor(private _overlayContainer: OverlayContainer,
     private notificationService: NotificationService,
@@ -31,6 +32,11 @@ export class AppComponent {
     }
 
     this.checkIfUserIsLoggedIn();
+  }
+
+  @HostListener('document:click', ['$event'])
+  documentClick() {
+    this.hideSidenav = environment.hideSidenav;
   }
 
   openOrCloseTheSideMenu(eventData: { openSideMenu: boolean }) {

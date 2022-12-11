@@ -7,7 +7,7 @@
 
     <ng-container *ngIf="isUserLoggedId">
         <mat-sidenav-container class="sidenav-container">
-            <mat-sidenav [opened]="true" mode="side" class="sidenav h-100">
+            <mat-sidenav *ngIf="!hideSidenav" [opened]="true" mode="side" class="sidenav h-100">
                 <app-side-menu (themeChanged)="changeTheme($event)" [currentTheme]="theme"></app-side-menu>
             </mat-sidenav>
 

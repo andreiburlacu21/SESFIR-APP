@@ -1,1 +1,37 @@
-<p>location-page works!</p>
+<div class="row d-flex justify-content-center">
+    <mat-card class="row col-10 mt-3">
+        <div class="d-flex align-items-center">
+            <button mat-mini-fab color="primary" class="action-fab-btn me-3" [routerLink]="['/home']">
+                <mat-icon> arrow_back </mat-icon>
+            </button>
+            <span class="float-start title">{{location.locationName}}</span>
+            <app-star-rating class="ms-auto"></app-star-rating>
+        </div>
+    </mat-card>
+
+    <mat-card class="locations-container col-10 mt-2">
+        <div style=" text-align:center;margin:0; padding:0;">
+            <ng-image-slider #nav [images]="imageObject" [infinite]="false" [autoSlide]="1"
+                [imageSize]="{width: '25%', height: 200}" slideImage="1" (imageClick)="zoomImage()" (lightboxClose)="exitImage()">
+            </ng-image-slider>
+        </div>
+    </mat-card>
+
+    <mat-card class="col-10 mt-2">
+        <mat-card-title class="pb-2">Details</mat-card-title>
+        <p> <span class="me-2">Address: </span> {{location.address}} </p>
+        <p> <span class="me-2">Price: </span> {{location.pricePerHour}} RON / 1h </p>
+    </mat-card>
+
+    <mat-card class="col-10 mt-2">
+        <mat-card-title class="pb-2">Location</mat-card-title>
+    </mat-card>
+
+    <mat-card class="col-10 mt-2 d-flex">
+        <mat-card-title>Reviews</mat-card-title>
+
+        <div *ngFor="let review of reviews">
+            comment
+        </div>
+    </mat-card>
+</div>

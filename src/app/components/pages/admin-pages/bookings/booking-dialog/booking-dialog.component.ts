@@ -95,15 +95,15 @@ export class BookingDialogComponent implements OnInit {
     this.bookingService.addBooking(booking)
       .subscribe(value => {
         this.dialogRef.close({ event: 'Add', data: value });
-      });    
-}
-  
-updateBooking() {
+      });
+  }
 
-}
+  updateBooking() {
 
-deleteBooking() {
+  }
 
-}
+  deleteBooking() {
+
+  }
 
 }

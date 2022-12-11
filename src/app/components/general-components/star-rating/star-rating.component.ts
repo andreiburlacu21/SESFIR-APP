@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./star-rating.component.scss']
 })
 export class StarRatingComponent implements OnInit {
-  @Input('rating') rating: number = 2;
+  @Input('rating') rating: number = 0;
   @Input('readonly') readonly: boolean = true;
   starCount: number = 5;
   @Output() ratingUpdated = new EventEmitter();
@@ -24,6 +24,7 @@ export class StarRatingComponent implements OnInit {
       this.ratingArr.push(index);
     }
   }
+  
   onClick(rating: number) {
     if(!this.readonly) {
       this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {

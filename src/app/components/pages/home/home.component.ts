@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Booking } from 'src/app/models/booking.model';
 import { LocationWithAllDetails } from 'src/app/models/location-with-all-details.model';
 import { Location } from 'src/app/models/location.model';
@@ -17,6 +18,7 @@ import { environment } from 'src/environments/environment';
 })
 
 export class HomeComponent implements OnInit {
+  isLoading = false;
   isAdminLoggedIn: boolean = false;
   locationsWithAllDetails: LocationWithAllDetails[] = [];
   locations: Location[] = [];
@@ -30,7 +32,8 @@ export class HomeComponent implements OnInit {
     private readonly locationService: LocationService,
     private readonly bookingService: BookingService,
     private readonly reviewService: ReviewService,
-    private readonly imageService: ImageService
+    private readonly imageService: ImageService,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,9 +45,11 @@ export class HomeComponent implements OnInit {
   }
 
   private loadData() {
+    this.isLoading = true;
     this.locationService.getAllLocations().subscribe({ // get all locations
       next: locations => {
         this.locations = locations;
+        console.log(locations);
 
         this.reviewService.getAllReviews().subscribe({ // get all reviews
           next: reviews => {
@@ -53,20 +58,20 @@ export class HomeComponent implements OnInit {
             this.bookingService.getAllBookings().subscribe({ // get all bookings
               next: bookings => {
                 this.bookings = bookings;
-
+                this.isLoading = false;
               },
               error: () => {
-
+                this.isLoading = false;
               }
             });
           },
           error: () => {
-
+            this.isLoading = false;
           }
         })
       },
       error: () => {
-
+        this.isLoading = false;
       }
     });
   }
@@ -97,5 +102,9 @@ export class HomeComponent implements OnInit {
     }
 
     return 0;
+  }
+
+  seeMore(location: Location) {
+    this.router.navigateByUrl('/location-page', { state: location});
   }
 }

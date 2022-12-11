@@ -46,6 +46,15 @@ export class ReviewsComponent implements OnInit {
         action: Action.ADD
       }
     })
+
+    dialogRef.afterClosed().subscribe(newReview => {
+      if (newReview.data) {
+        this.reviewsService.addReview(newReview.data).subscribe(resp => {
+          this.notificationService.showSuccessNotification("Review added!");
+          this.getAllReviews();
+        });
+      }
+    });
   }
 
   editReview(review: Review) {
@@ -57,6 +66,16 @@ export class ReviewsComponent implements OnInit {
       }
     })
 
+    dialogRef.afterClosed().subscribe(updatedReview => {
+      if(updatedReview.data) {
+        this.reviewsService.updateReview(updatedReview.data).subscribe(resp => {
+          if(resp) {
+            this.notificationService.showSuccessNotification("Review updated!");
+            this.getAllReviews();
+          }
+        });
+      }
+    });
   }
 
   deleteReview(review: Review) {
@@ -67,5 +86,16 @@ export class ReviewsComponent implements OnInit {
         review:  review
       }
     })
+
+    dialogRef.afterClosed().subscribe(reviewId => {
+      if(reviewId.data) {
+        this.reviewsService.deleteReview(reviewId.data).subscribe(resp => {
+          if(resp) {
+            this.notificationService.showSuccessNotification("Review deleted!");
+            this.getAllReviews();
+          }
+        });
+      }
+    });
   }
 }

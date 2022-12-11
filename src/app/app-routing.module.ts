@@ -5,6 +5,7 @@ import { BookingsComponent } from './components/pages/admin-pages/bookings/booki
 import { LocationsComponent } from './components/pages/admin-pages/locations/locations.component';
 import { ReviewsComponent } from './components/pages/admin-pages/reviews/reviews.component';
 import { HomeComponent } from './components/pages/home/home.component';
+import { LocationPageComponent } from './components/pages/location-page/location-page.component';
 import { LoginOrRegisterComponent } from './components/pages/login-or-register/login-or-register.component';
 
 const routes: Routes = [
@@ -37,6 +38,10 @@ const routes: Routes = [
     path: 'reviews',
     component: ReviewsComponent
   },
+  {
+    path: 'location-page',
+    component: LocationPageComponent
+  }
 ];
 
 @NgModule({
