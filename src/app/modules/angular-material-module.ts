@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule ({
     exports: [
@@ -30,7 +31,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
         MatProgressSpinnerModule,
         MatDialogModule,
         MatProgressBarModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatExpansionModule
     ]
 })
 
