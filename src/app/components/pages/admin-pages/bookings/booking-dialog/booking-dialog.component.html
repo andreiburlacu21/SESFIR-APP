@@ -25,21 +25,20 @@
                     <strong>required</strong> </mat-error>
             </mat-form-field>
 
-
-
             <mat-form-field *ngIf="enableDates" appearance="fill">
                 <mat-label>Check in date</mat-label>
-                <input matInput [min]="minDate" [formControl]="inDateFormControl" [matDatepickerFilter]="myFilter"
-                    [matDatepicker]="makePicker">
+                <input matInput [min]="minDate" [formControl]="inDateFormControl" [matDatepickerFilter]="myFilterIn"
+                    [matDatepicker]="makePicker" (dateChange)="setInDate()">
                 <mat-datepicker-toggle matSuffix [for]="makePicker"></mat-datepicker-toggle>
                 <mat-datepicker [dateClass]="dateClass" #makePicker></mat-datepicker>
             </mat-form-field>
 
-            <mat-form-field *ngIf="enableDates" appearance="outline">
+            <mat-form-field *ngIf="enableDates" appearance="fill">
                 <mat-label>Check out date</mat-label>
-                <input matInput required [formControl]="outDateFormControl">
-                <mat-error *ngIf="outDateFormControl.hasError('required')"> Check out date is
-                    <strong>required</strong> </mat-error>
+                <input matInput [min]="minDate" [formControl]="outDateFormControl" [matDatepickerFilter]="myFilterOut"
+                    [matDatepicker]="makePicker">
+                <mat-datepicker-toggle matSuffix [for]="makePicker"></mat-datepicker-toggle>
+                <mat-datepicker [dateClass]="dateClass" #makePicker></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field appearance="outline">

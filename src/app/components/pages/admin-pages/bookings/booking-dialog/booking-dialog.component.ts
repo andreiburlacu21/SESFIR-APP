@@ -25,7 +25,8 @@ export class BookingDialogComponent implements OnInit {
   checkInDate: any = null;
   totalPriceFormControl = new FormControl(0, [Validators.required]);
   minDate: any = new Date;
-  myFilter: any;
+  myFilterIn: any;
+  myFilterOut: any;
   dateClass: any;
   enableDates: boolean = false;
   private dateHelper !: DateHelper;
@@ -59,9 +60,12 @@ export class BookingDialogComponent implements OnInit {
     var id = this.locationIdFormControl.getRawValue() as unknown as number; 
     this.enableDates = true;
     this.dateHelper = new DateHelper(this.bookingService, id);
-    this.myFilter = this.dateHelper.myFilter;
+    this.myFilterIn = this.dateHelper.myFilterIn;
+    this.myFilterOut = this.dateHelper.myFilterOut;
     //this.dateClass = this.dateHelper.dateClass;
-
+  }
+  setInDate(){
+    this.dateHelper.inDate = this.inDateFormControl.getRawValue() as unknown as Date;
   }
 
   addBooking() {

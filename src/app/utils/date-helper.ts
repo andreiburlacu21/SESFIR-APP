@@ -4,7 +4,8 @@ import { Booking } from "../models/booking.model";
 import { BookingService } from "../services/booking-service/booking.service";
 
 export class DateHelper {
-    private dictionary!: Map<number | undefined, [string | undefined , string | undefined] >;
+    private dictionary!: Map<number | undefined, [string | undefined, string | undefined]>;
+    public inDate!: Date;
 
     constructor(private service: BookingService, locationId: number) {
         this.dictionary = new Map();
@@ -12,22 +13,34 @@ export class DateHelper {
             bookings.forEach(value => this.dictionary.set(value.bookingId, [value.inDate, value.outDate]
             )));
     }
-
     static getDate(date: any) {
         return (new Date(date)).toLocaleDateString().replace("/", "-").replace("/", "-");
     }
 
-    myFilter = (d: Date | null): boolean => {
+    myFilterIn = (d: Date): boolean => {
+        var set = true;
+        this.dictionary.forEach(x => {
 
+            var date1 = new Date(x[0] + "");
+            var date2 = new Date(x[1] + "");
+            if ((d >= date1 && d <= date2)) {
+                set = false;
+            }
+        });
+        return set;
+    }
 
-     
+    myFilterOut = (d: Date): boolean => {
+        var set = true;
+        this.dictionary.forEach(x => {
 
-
-        if (d) {
-            const day = d.getDay();
-            return day !== 0 && day !== 6;
-        }
-        return true;
+            var date1 = new Date(x[0] + "");
+            var date2 = new Date(x[1] + "");
+            if (this.inDate < date1 || d < this.inDate) {
+                set = false;
+            }
+        });
+        return set;
     }
 
     //   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
