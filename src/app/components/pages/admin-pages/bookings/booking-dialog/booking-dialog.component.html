@@ -13,7 +13,7 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Location id</mat-label>
-                <input matInput required [formControl]="locationIdFormControl">
+                <input matInput required [formControl]="locationIdFormControl" (keyup)="setAvailabilityDate()">
                 <mat-error *ngIf="locationIdFormControl.hasError('required')"> Location id is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
@@ -25,16 +25,17 @@
                     <strong>required</strong> </mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
+
+
+            <mat-form-field *ngIf="enableDates" appearance="fill">
                 <mat-label>Check in date</mat-label>
-                <input matInput required [matDatepicker]="checkInDate" [(ngModel)]="checkInDate">
+                <input matInput [min]="minDate" [formControl]="inDateFormControl" [matDatepickerFilter]="myFilter"
+                    [matDatepicker]="makePicker">
+                <mat-datepicker-toggle matSuffix [for]="makePicker"></mat-datepicker-toggle>
+                <mat-datepicker [dateClass]="dateClass" #makePicker></mat-datepicker>
             </mat-form-field>
 
-            <!-- <mat-form-field>
-                <input matInput type="datetime-local" placeholder="start date">
-            </mat-form-field> -->
-
-            <mat-form-field appearance="outline">
+            <mat-form-field *ngIf="enableDates" appearance="outline">
                 <mat-label>Check out date</mat-label>
                 <input matInput required [formControl]="outDateFormControl">
                 <mat-error *ngIf="outDateFormControl.hasError('required')"> Check out date is

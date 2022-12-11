@@ -13,6 +13,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 @NgModule ({
     exports: [
@@ -24,6 +26,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
         MatInputModule,
         MatSnackBarModule,
         FormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         ReactiveFormsModule,
         MatSlideToggleModule,
         MatButtonModule,

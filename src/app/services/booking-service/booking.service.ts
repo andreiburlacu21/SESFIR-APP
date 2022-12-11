@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BookingService {
+
   private reqPath: string = "";
 
   constructor(private httpClient: HttpClient) {
@@ -28,5 +29,14 @@ export class BookingService {
 
   deleteBooking(bookingId: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(this.reqPath + "/" + bookingId);
+  }
+  checkAppointmentDate(date: any) {
+    return this.httpClient.get<boolean>(this.reqPath + "/dateval" + date);
+  }
+  getCurrentDates(locationId: number) {
+    return this.httpClient.get<string[]>(this.reqPath + `/dates/${locationId}`);
+  }
+  getBookingsByLocationId(locationId: number) {
+    return this.httpClient.get<Booking[]>(this.reqPath + `/byLocationid/${locationId}`);
   }
 }
