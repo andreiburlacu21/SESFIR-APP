@@ -1,7 +1,7 @@
 export class Booking {
-    bookingId?: number;
-    accountId?: number;
-    locationId?: number;
+    bookingId?: string;
+    accountId?: string;
+    locationId?: string;
     phoneNumber?: string;
     inDate?: string;
     outDate?: string;

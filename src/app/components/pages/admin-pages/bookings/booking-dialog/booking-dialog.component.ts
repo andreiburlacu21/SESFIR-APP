@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Account } from 'src/app/models/account.model';
+import { Booking } from 'src/app/models/booking.model';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
 import { Action } from 'src/app/utils/interceptor/admin-actions';
 import { AccountDialogComponent } from '../../accounts/account-dialog/account-dialog.component';
@@ -14,12 +14,14 @@ import { AccountDialogComponent } from '../../accounts/account-dialog/account-di
 
 export class BookingDialogComponent implements OnInit {
   action: Action = Action.ADD;
-  account: Account = new Account();
-  accountIdFormControl = new FormControl('', [Validators.required, Validators.email]);
+  booking: Booking = new Booking();
+  accountIdFormControl = new FormControl('', [Validators.required]);
   locationIdFormControl = new FormControl('', [Validators.required]);
   phoneNumberFormControl = new FormControl('', [Validators.required]);
-  passwordFormControl = new FormControl('', [Validators.required]);
-  confirmPasswordFormControl = new FormControl('', [Validators.required]);
+  inDateFormControl = new FormControl(new Date(), [Validators.required]);
+  outDateFormControl = new FormControl(new Date(), [Validators.required]);
+  checkInDate: any = null;
+  totalPriceFormControl = new FormControl(0, [Validators.required]);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private readonly notificationService: NotificationService,
@@ -32,12 +34,29 @@ export class BookingDialogComponent implements OnInit {
   private getPassedData() {
     this.action = this.data.action;
     if (this.action !== Action.ADD) {
-      this.account = this.data.account;
+      this.booking = this.data.booking;
     }
 
     if(this.action === Action.UPDATE) {
-
+      this.accountIdFormControl.setValue(this.booking.accountId!!);
+      this.locationIdFormControl.setValue(this.booking.locationId!!);
+      this.phoneNumberFormControl.setValue(this.booking.phoneNumber!!);
+      this.inDateFormControl.setValue(new Date(this.booking.inDate!!));
+      this.outDateFormControl.setValue(new Date(this.booking.outDate!!));
+      this.totalPriceFormControl.setValue(this.booking.totalPrice!!);
     }
+  }
+
+  addBooking() {
+
+  }
+
+  updateBooking() {
+
+  }
+
+  deleteBooking() {
+
   }
 
 }

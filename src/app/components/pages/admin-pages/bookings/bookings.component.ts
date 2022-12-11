@@ -29,6 +29,7 @@ export class BookingsComponent implements OnInit {
     this.bookingService.getAllBookings().subscribe({
       next: resp => {
         this.bookings = resp;
+        console.log(this.bookings);
         this.isLoading = false;
       },
       error: () => {
@@ -41,7 +42,7 @@ export class BookingsComponent implements OnInit {
     let dialogRef = this.dialog.open(BookingDialogComponent, {
       width: '500px',
       data: {
-        action: Action
+        action: Action.ADD
       }
     })
   }

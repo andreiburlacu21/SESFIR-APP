@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule ({
     exports: [
@@ -28,7 +29,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         MatButtonModule,
         MatProgressSpinnerModule,
         MatDialogModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        MatDatepickerModule
     ]
 })
 
