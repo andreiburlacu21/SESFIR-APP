@@ -67,7 +67,5 @@ export class ReviewsComponent implements OnInit {
         review:  review
       }
     })
-
   }
-
 }

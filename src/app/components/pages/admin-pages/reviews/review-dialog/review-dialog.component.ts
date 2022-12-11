@@ -14,8 +14,8 @@ import { Action } from 'src/app/utils/interceptor/admin-actions';
 export class ReviewDialogComponent implements OnInit {
   action: Action = Action.ADD;
   review: Review = new Review();
-  accountIdFormControl = new FormControl('', [Validators.required]);
-  locationIdFormControl = new FormControl('', [Validators.required]);
+  accountIdFormControl = new FormControl(0, [Validators.required]);
+  locationIdFormControl = new FormControl(0, [Validators.required]);
   gradeFormControl = new FormControl(0, [Validators.required]);
   descriptionFormControl = new FormControl('', [Validators.required]);
   dateFormControl = new FormControl(new Date(), [Validators.required]);
@@ -45,8 +45,8 @@ export class ReviewDialogComponent implements OnInit {
 
   addReview() {
     let newReview: Review = new Review();
-    newReview.accountId = this.accountIdFormControl.getRawValue() ?? "";
-    newReview.locationId = this.locationIdFormControl.getRawValue() ?? "";
+    newReview.accountId = this.accountIdFormControl.getRawValue() ?? 0;
+    newReview.locationId = this.locationIdFormControl.getRawValue() ?? 0;
     newReview.grade = this.gradeFormControl.getRawValue() ?? 0;
     newReview.description = this.descriptionFormControl.getRawValue() ?? "";
     newReview.date = this.descriptionFormControl.getRawValue as unknown as string ?? "";
@@ -57,8 +57,8 @@ export class ReviewDialogComponent implements OnInit {
   updateReview() {
     let newReview: Review = new Review();
     newReview.reviewId = this.review.reviewId;
-    newReview.accountId = this.accountIdFormControl.getRawValue() ?? "";
-    newReview.locationId = this.locationIdFormControl.getRawValue() ?? "";
+    newReview.accountId = this.accountIdFormControl.getRawValue() ?? 0;
+    newReview.locationId = this.locationIdFormControl.getRawValue() ?? 0;
     newReview.grade = this.gradeFormControl.getRawValue() ?? 0;
     newReview.description = this.descriptionFormControl.getRawValue() ?? "";
     newReview.date = this.descriptionFormControl.getRawValue as unknown as string ?? "";

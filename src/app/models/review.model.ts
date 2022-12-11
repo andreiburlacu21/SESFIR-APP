@@ -1,8 +1,11 @@
+import { ReviewEntity } from "./review-entity.model";
+
 export class Review {
-    reviewId?: string
-    accountId?: string
-    locationId?: string
-    grade?: number
-    description?: string
-    date?: string
+    reviewId?: number;
+    accountId?: number;
+    locationId?: number;
+    grade?: number;
+    description?: string;
+    date?: string;
+    reviewEntity?: ReviewEntity;
 }
