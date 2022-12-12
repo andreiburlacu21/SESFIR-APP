@@ -26,7 +26,11 @@ export class StarRatingComponent implements OnInit {
   
   onClick(index: number) {
     if(!this.readonly) {
-      this.currentRating = index;
+      if(this.currentRating === index) {
+        this.currentRating = 0;
+      } else {
+        this.currentRating = index;
+      }
     }
     this.ratingUpdated.emit({
       rating: this.currentRating

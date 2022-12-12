@@ -51,7 +51,6 @@ export class LocationPageComponent implements OnInit {
   ngOnInit(): void {
     if (this.location) {
       this.getLocationData();
-
     }
 
     this.accountService.getMyData().subscribe({

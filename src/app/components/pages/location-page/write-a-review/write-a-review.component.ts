@@ -47,7 +47,5 @@ export class WriteAReviewComponent implements OnInit {
         this.notificationService.showErrorNotification("There was a problem with your new review. Please try again!");
       }
     });
-
-    
   }
 }

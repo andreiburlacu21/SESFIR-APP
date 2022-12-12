@@ -1,0 +1,38 @@
+<div class="row d-flex justify-content-center">
+    <mat-card class="row profile-card col-5 mt-3">
+        <div class="d-flex justify-content-center mt-3">
+            <mat-icon class="profile-icon">account_circle</mat-icon>
+        </div>
+
+        <div *ngIf="isLoading" class="h-100 m-0 p-0 d-flex justify-content-center align-items-center mt-5">
+            <mat-spinner class="loading-spinner"></mat-spinner>
+        </div>
+
+        <div *ngIf="!isLoading" class="mt-5">
+            <div class="d-flex align-items-center">
+                <h1>Account information:</h1>
+                <!-- <button mat-mini-fab class="action-fab-btn edit-btn mb-3 ms-3">
+                    <mat-icon> edit </mat-icon>
+                </button> -->
+            </div>
+
+            <div *ngIf="!userWantsToUpdate">
+                <div class="mt-2">
+                    <span class="label me-1">Email: </span>
+                    <span> {{ account.email }} </span>
+                </div>
+        
+                <div class="mt-2">
+                    <span class="label me-1">Username: </span>
+                    <span> {{ account.userName }} </span>
+                </div>
+        
+                <div class="mt-2">
+                    <span class="label me-1">Phone number: </span>
+                    <span> {{ account.phoneNumber }} </span>
+                </div>
+            </div>
+            
+        </div>
+    </mat-card>
+</div>

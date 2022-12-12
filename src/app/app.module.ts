@@ -25,6 +25,7 @@ import { LocationPageComponent } from './components/pages/location-page/location
 import { NgImageSliderModule } from 'ng-image-slider';
 import { WriteAReviewComponent } from './components/pages/location-page/write-a-review/write-a-review.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     ImageDialogComponent,
     StarRatingComponent,
     LocationPageComponent,
-    WriteAReviewComponent
+    WriteAReviewComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

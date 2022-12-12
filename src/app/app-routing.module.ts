@@ -7,6 +7,7 @@ import { ReviewsComponent } from './components/pages/admin-pages/reviews/reviews
 import { HomeComponent } from './components/pages/home/home.component';
 import { LocationPageComponent } from './components/pages/location-page/location-page.component';
 import { LoginOrRegisterComponent } from './components/pages/login-or-register/login-or-register.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   {
     path: 'accounts',
