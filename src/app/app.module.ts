@@ -23,6 +23,7 @@ import { ImageDialogComponent } from './components/pages/admin-pages/locations/i
 import { StarRatingComponent } from './components/general-components/star-rating/star-rating.component';
 import { LocationPageComponent } from './components/pages/location-page/location-page.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { WriteAReviewComponent } from './components/pages/location-page/write-a-review/write-a-review.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ReviewDialogComponent,
     ImageDialogComponent,
     StarRatingComponent,
-    LocationPageComponent
+    LocationPageComponent,
+    WriteAReviewComponent
   ],
   imports: [
     BrowserModule,

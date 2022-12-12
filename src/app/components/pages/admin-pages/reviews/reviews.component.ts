@@ -30,6 +30,7 @@ export class ReviewsComponent implements OnInit {
     this.reviewsService.getAllReviews().subscribe({
       next: resp => {
         this.reviews = resp;
+        console.log(this.reviews);
         this.isLoading = false;
       },
       error: () => {

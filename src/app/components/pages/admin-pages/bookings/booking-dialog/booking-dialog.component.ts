@@ -83,7 +83,6 @@ export class BookingDialogComponent implements OnInit {
   }
 
   addBooking() {
-
     var booking = new Booking();
     booking.accountId = this.accountIdFormControl.getRawValue() as unknown as number;
     booking.inDate = this.inDateFormControl.getRawValue()?.toDateString();

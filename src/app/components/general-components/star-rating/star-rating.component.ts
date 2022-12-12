@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-star-rating',
@@ -10,43 +9,28 @@ export class StarRatingComponent implements OnInit {
   @Input('rating') rating: number = 0;
   @Input('readonly') readonly: boolean = true;
   starCount: number = 5;
-  @Output() ratingUpdated = new EventEmitter();
+  currentRating: number = 0;
+  @Output() ratingUpdated = new EventEmitter<{rating: number}>();
 
   snackBarDuration: number = 2000;
   ratingArr: number[] = [];
 
-  constructor(private snackBar: MatSnackBar) {
-  }
+  constructor() {}
 
   ngOnInit() {
-    console.log("a " + this.starCount)
+    this.currentRating = this.rating
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
   }
   
-  onClick(rating: number) {
+  onClick(index: number) {
     if(!this.readonly) {
-      this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
-        duration: this.snackBarDuration
-      });
-      rating++;
+      this.currentRating = index;
     }
-    this.ratingUpdated.emit(rating);
+    this.ratingUpdated.emit({
+      rating: this.currentRating
+    });
     return false;
   }
-
-  showIcon(index: number) {
-    if (this.rating >= index + 1) {
-      return 'star';
-    } else {
-      return 'star_border';
-    }
-  }
-}
-
-export enum StarRatingColor {
-  primary = "primary",
-  accent = "accent",
-  warn = "warn"
 }

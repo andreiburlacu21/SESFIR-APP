@@ -20,8 +20,8 @@ export class ReviewService {
     return this.httpClient.get<Review[]>(this.reqPath + "/all");
   }
 
-  getReviewEntityById(locationId: number): Observable<ReviewEntity> {
-    return this.httpClient.get<ReviewEntity>(this.reqPath + "/Entity/" + locationId);
+  getReviewEntityById(reviewId: number): Observable<ReviewEntity> {
+    return this.httpClient.get<ReviewEntity>(this.reqPath + "/Entity/" + reviewId);
   }
 
   addReview(review: Review): Observable<Review> {

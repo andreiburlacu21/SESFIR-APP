@@ -9,7 +9,7 @@
                 <mat-select [formControl]="accountIdFormControl">
                     <mat-option *ngFor="let item of accountData" [value]="item.accountId">{{item.userName}}</mat-option>
                 </mat-select>
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -20,7 +20,7 @@
                                             {{item.locationName}}
                     </mat-option>
                 </mat-select>
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-icon matSuffix>location_on</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">

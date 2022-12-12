@@ -48,7 +48,7 @@
                         {{ review.description }}
                     </td>
                     <td class="pt-3">
-                        {{ review.date }}
+                        {{ review.date | date : 'dd-MM-yyyy' }}
                     </td>
                     <td>
                         <button mat-mini-fab class="action-fab-btn edit-btn" (click)="editReview(review)">

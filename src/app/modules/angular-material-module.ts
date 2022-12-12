@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 @NgModule ({
     exports: [
@@ -37,7 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
         MatDialogModule,
         MatProgressBarModule,
         MatDatepickerModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatBottomSheetModule
     ]
 })
 
