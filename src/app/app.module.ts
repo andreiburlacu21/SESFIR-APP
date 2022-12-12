@@ -24,6 +24,7 @@ import { StarRatingComponent } from './components/general-components/star-rating
 import { LocationPageComponent } from './components/pages/location-page/location-page.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { WriteAReviewComponent } from './components/pages/location-page/write-a-review/write-a-review.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { WriteAReviewComponent } from './components/pages/location-page/write-a-
     BrowserAnimationsModule,
     AngularMaterialModule,
     HttpClientModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    GoogleMapsModule
   ],
   providers: [
     {

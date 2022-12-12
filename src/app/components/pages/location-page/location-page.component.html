@@ -7,8 +7,8 @@
                 <mat-icon> arrow_back </mat-icon>
             </button>
             <span class="float-start title">{{location.locationName}}</span>
-            <app-star-rating *ngIf="!isLoading" [rating]="calculateLocationRating(location.locationId!!)" [readonly]="true"
-                class="ms-auto"></app-star-rating>
+            <app-star-rating *ngIf="!isLoading" [rating]="calculateLocationRating(location.locationId!!)"
+                [readonly]="true" class="ms-auto"></app-star-rating>
         </div>
     </mat-card>
 
@@ -36,6 +36,9 @@
     <mat-card class="col-10 mt-2">
         <mat-card-title class="pb-2 ms-2">Location</mat-card-title>
         <mat-card-content class="img-container d-flex justify-content-center mt-4 ms-5 me-5">
+            <google-map height="400px" width="1050px" [center]="center" [zoom]="zoom">
+                <map-marker [position]="center" [options]="markerOptions"></map-marker>
+            </google-map>
 
         </mat-card-content>
     </mat-card>
@@ -63,7 +66,8 @@
             </mat-card>
         </mat-card-content>
 
-        <mat-card-content *ngIf="reviews.length <= 0 && !isLoading" class="row mt-3 d-flex justify-content-center reviews-card">
+        <mat-card-content *ngIf="reviews.length <= 0 && !isLoading"
+            class="row mt-3 d-flex justify-content-center reviews-card">
             <h3 class="col-4 ps-5">Be the first one to review this location!</h3>
         </mat-card-content>
     </mat-card>

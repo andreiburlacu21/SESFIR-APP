@@ -109,6 +109,8 @@ export class HomeComponent implements OnInit {
   }
 
   seeMore(location: Location) {
+    environment.locationX = location.locationX!!;
+    environment.locationY = location.locationY!!;
     this.router.navigateByUrl('/location-page', { state: location});
   }
 }

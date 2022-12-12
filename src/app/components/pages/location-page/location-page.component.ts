@@ -20,20 +20,38 @@ export class LocationPageComponent implements OnInit {
   loggedInAccount: Account = new Account();
   location: Location;
   images: string[] = [];
-  reviews: Review[] = [];  
+  reviews: Review[] = [];
   imageObject: Object[] = [];
+
+  center: google.maps.LatLngLiteral = {
+    lat: environment.locationX,
+    lng: environment.locationY
+  };
+
+  markerOptions: google.maps.MarkerOptions = {
+    draggable: false
+  };
+
+  markerPosition: google.maps.LatLngLiteral = {
+    lat: environment.locationX,
+    lng: environment.locationY
+  }
+
+  zoom = 17;
 
   constructor(private router: Router,
     private imageService: ImageService,
     private reviewService: ReviewService,
     private _bottomSheet: MatBottomSheet,
-    private accountService: AccountService) { 
+    private accountService: AccountService) {
     this.location = this.router.getCurrentNavigation()!.extras.state!;
+
   }
 
   ngOnInit(): void {
-    if(this.location) {
+    if (this.location) {
       this.getLocationData();
+
     }
 
     this.accountService.getMyData().subscribe({
@@ -41,7 +59,7 @@ export class LocationPageComponent implements OnInit {
         this.loggedInAccount = resp;
       },
       error: () => {
-      
+
       }
     });
   }
@@ -104,17 +122,17 @@ export class LocationPageComponent implements OnInit {
       }
     });
 
-    if(reviewsForThisLocation.length === 0 ) {
+    if (reviewsForThisLocation.length === 0) {
       return 0;
     }
 
     let rating: number = totalScore / reviewsForThisLocation.length;
 
-    if(rating % 1 < 0.5) {
+    if (rating % 1 < 0.5) {
       return Math.floor(rating);
-    } 
+    }
 
-    if(rating % 1 >= 0.5 ) {
+    if (rating % 1 >= 0.5) {
       return Math.ceil(rating);
     }
 
@@ -122,7 +140,7 @@ export class LocationPageComponent implements OnInit {
   }
 
   writeReview() {
-    const config: MatBottomSheetConfig = {data: {location: this.location, account: this.loggedInAccount }};
+    const config: MatBottomSheetConfig = { data: { location: this.location, account: this.loggedInAccount } };
 
     this._bottomSheet.open(WriteAReviewComponent, config);
   }
