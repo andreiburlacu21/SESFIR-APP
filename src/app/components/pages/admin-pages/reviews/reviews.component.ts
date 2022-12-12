@@ -72,6 +72,7 @@ export class ReviewsComponent implements OnInit {
         this.reviewsService.updateReview(updatedReview.data).subscribe(resp => {
           if(resp) {
             this.notificationService.showSuccessNotification("Review updated!");
+            console.log(resp);
             this.getAllReviews();
           }
         });

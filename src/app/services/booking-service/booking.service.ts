@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BookingEntity } from 'src/app/models/booking-entity.model';
 import { Booking } from 'src/app/models/booking.model';
 import { environment } from 'src/environments/environment';
 
@@ -17,6 +18,10 @@ export class BookingService {
 
   getAllBookings(): Observable<Booking[]> {
     return this.httpClient.get<Booking[]>(this.reqPath + "/all");
+  }
+
+  getBookingEntityById(bookingId: number): Observable<BookingEntity> {
+    return this.httpClient.get<BookingEntity>(this.reqPath + "/Entity/" + bookingId);
   }
 
   addBooking(booking: Booking): Observable<Booking> {

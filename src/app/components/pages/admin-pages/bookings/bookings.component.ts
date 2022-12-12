@@ -47,11 +47,12 @@ export class BookingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(newBooking => {
-      if(newBooking){
+      if (newBooking) {
         this.notificationService.showSuccessNotification("Account added!");
         this.getAllBookings();
-      }});
-  
+      }
+    });
+
   }
 
   editBooking(booking: Booking) {

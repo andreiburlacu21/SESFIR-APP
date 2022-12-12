@@ -1,3 +1,5 @@
+import { BookingEntity } from "./booking-entity.model";
+
 export class Booking {
     bookingId?: number;
     accountId?: number;
@@ -6,4 +8,5 @@ export class Booking {
     inDate?: string;
     outDate?: string;
     totalPrice?: number;
+    bookingEntity?: BookingEntity
 }

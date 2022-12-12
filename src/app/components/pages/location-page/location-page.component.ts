@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
+import { MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Account } from 'src/app/models/account.model';
 import { Location } from 'src/app/models/location.model';
 import { Review } from 'src/app/models/review.model';
 import { AccountService } from 'src/app/services/account-service/account.service';
 import { ImageService } from 'src/app/services/image-service/image.service';
+import { NotificationService } from 'src/app/services/notification-service/notification.service';
 import { ReviewService } from 'src/app/services/review-service/review.service';
 import { environment } from 'src/environments/environment';
+import { MakeAReservationComponent } from './make-a-reservation/make-a-reservation.component';
 import { WriteAReviewComponent } from './write-a-review/write-a-review.component';
 
 @Component({
@@ -43,7 +46,10 @@ export class LocationPageComponent implements OnInit {
     private imageService: ImageService,
     private reviewService: ReviewService,
     private _bottomSheet: MatBottomSheet,
-    private accountService: AccountService) {
+    private accountService: AccountService,
+    private bottomSheetRef: MatBottomSheetRef<WriteAReviewComponent>,
+    private readonly dialog: MatDialog, 
+    private readonly notificationService: NotificationService) {
     this.location = this.router.getCurrentNavigation()!.extras.state!;
 
   }
@@ -75,25 +81,30 @@ export class LocationPageComponent implements OnInit {
           });
         });
 
-        this.reviewService.getAllReviews().subscribe({
-          next: reviews => {
-            this.reviews = reviews.filter(review => review.locationId === this.location.locationId);
-            this.isLoading = false;
-            // this.reviews.forEach(review => {
-            //   this.reviewService.getReviewEntityById(this.location.locationId!).subscribe({
-            //     next: resp => {
-            //       review.reviewEntity = resp;
-            //       this.isLoading = false;
-            //     },
-            //     error: () => {
+        this.getReviews();
+      },
+      error: () => {
+        this.isLoading = false;
+      }
+    });
+  }
 
-            //     }
-            //   });
-            // });
-          },
-          error: () => {
-            this.isLoading = false;
-          }
+  private getReviews() {
+    this.isLoading = true;
+    this.reviewService.getAllReviews().subscribe({
+      next: reviews => {
+        this.reviews = reviews.filter(review => review.locationId === this.location.locationId);
+        this.isLoading = false;
+        this.reviews.forEach(review => {
+          this.reviewService.getReviewEntityById(review.reviewId!).subscribe({
+            next: resp => {
+              review.reviewEntity = resp;
+              this.isLoading = false;
+            },
+            error: () => {
+
+            }
+          });
         });
       },
       error: () => {
@@ -141,6 +152,27 @@ export class LocationPageComponent implements OnInit {
   writeReview() {
     const config: MatBottomSheetConfig = { data: { location: this.location, account: this.loggedInAccount } };
 
-    this._bottomSheet.open(WriteAReviewComponent, config);
+    this.bottomSheetRef = this._bottomSheet.open(WriteAReviewComponent, config);
+
+    this.bottomSheetRef.afterDismissed().subscribe(() => {
+      this.getReviews();
+    });
+  }
+
+  book() {
+    let dialogRef = this.dialog.open(MakeAReservationComponent, {
+      width: '500px',
+      data: {
+        account: this.loggedInAccount,
+        location: this.location
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(newBooking => {
+      if (newBooking) {
+        this.notificationService.showSuccessNotification("Location booked!");
+      }
+    });
+
   }
 }

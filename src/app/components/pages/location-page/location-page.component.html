@@ -24,13 +24,13 @@
     <mat-card class="col-10 mt-2">
         <div class="d-flex align-items-center">
             <mat-card-title class="pb-2 ms-2">Details</mat-card-title>
-            <button mat-mini-fab class="action-fab-btn ms-auto add-photo-btn">
+            <button mat-mini-fab class="action-fab-btn ms-auto add-photo-btn" (click)="book()">
                 <mat-icon> book </mat-icon>
             </button>
             <span class="me-2">Make a reservation</span>
         </div>
         <p> <span class="me-2 ms-2">Address: </span> {{location.address}} </p>
-        <p> <span class="me-2 ms-2">Price: </span> {{location.pricePerHour}} RON / 1h </p>
+        <p> <span class="me-2 ms-2">Price: </span> {{location.pricePerHour}} RON / 1 day (8:00 AM - 10:59 PM) </p>
     </mat-card>
 
     <mat-card class="col-10 mt-2">
@@ -55,7 +55,7 @@
         <mat-card-content *ngIf="reviews.length > 0" class="row mt-3 d-flex justify-content-center reviews-card">
             <mat-card class="row mb-2 review-card" *ngFor="let review of reviews; index as i">
                 <mat-card-header>
-                    <mat-card-subtitle class="pt-1"> {{i+1}}. <span class="ms-2"> {{review.accountId}}</span>
+                    <mat-card-subtitle class="pt-1"> {{i+1}}. <span class="ms-2"> {{review.reviewEntity?.account?.userName}}</span>
                     </mat-card-subtitle>
                     <app-star-rating [rating]="review.grade!!" [readonly]="true" class="ms-auto"></app-star-rating>
                 </mat-card-header>

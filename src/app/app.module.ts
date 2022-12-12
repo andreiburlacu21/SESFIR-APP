@@ -26,6 +26,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { WriteAReviewComponent } from './components/pages/location-page/write-a-review/write-a-review.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ProfileComponent } from './components/pages/profile/profile.component';
+import { MakeAReservationComponent } from './components/pages/location-page/make-a-reservation/make-a-reservation.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ProfileComponent } from './components/pages/profile/profile.component';
     StarRatingComponent,
     LocationPageComponent,
     WriteAReviewComponent,
-    ProfileComponent
+    ProfileComponent,
+    MakeAReservationComponent
   ],
   imports: [
     BrowserModule,
