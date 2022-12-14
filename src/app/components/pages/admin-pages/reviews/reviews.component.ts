@@ -30,8 +30,24 @@ export class ReviewsComponent implements OnInit {
     this.reviewsService.getAllReviews().subscribe({
       next: resp => {
         this.reviews = resp;
-        console.log(this.reviews);
-        this.isLoading = false;
+        let reviewsLoaded: number = 0;
+        this.reviews.forEach(review => {
+          this.reviewsService.getReviewEntityById(review.reviewId!!).subscribe({
+            next: resp => {
+              review.reviewEntity = resp;
+              reviewsLoaded++;
+
+              if(reviewsLoaded === this.reviews.length) {
+                this.isLoading = false;
+              }
+            },
+            error: () => {
+              this.isLoading = false;
+              this.notificationService.showErrorNotification("There was an error while a review's data!");
+            }
+          });
+        });
+
       },
       error: () => {
         this.isLoading = false;

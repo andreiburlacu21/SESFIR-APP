@@ -55,18 +55,18 @@ export class LoginOrRegisterComponent {
 
   register() {
     if (this.passwordFormControl.getRawValue() === this.confirmPasswordFormControl.getRawValue()) {
-      this.notificationService.showSuccessNotification("Account created!");
-      this.userWantsToLogin = true;
       let newAccount: Account = new Account();
       newAccount.email = this.emailFormControl.getRawValue() ?? "";
       newAccount.userName = this.usernameFormControl.getRawValue() ?? "";
       newAccount.password = this.usernameFormControl.getRawValue() ?? "";
       newAccount.phoneNumber = "0756514123";
       this.authService.register(newAccount).subscribe({
-        next: resp => {
-          console.log(resp);
-        }, error: err => {
-          console.error(err);
+        next: () => {
+          this.userWantsToLogin = true;
+          this.notificationService.showSuccessNotification("Account created!");
+        }, error: (err) => {
+          this.notificationService.showSuccessNotification("Account creation failed!");
+          console.log(err);
         }
       }
       );

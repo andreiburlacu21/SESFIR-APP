@@ -12,14 +12,14 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Image location</mat-label>
-                <input matInput required [formControl]="imageLocationFormControl">
-                <mat-error *ngIf="imageLocationFormControl.hasError('required')"> Image location is <strong>required</strong>
+                <mat-label>Address</mat-label>
+                <input matInput required [formControl]="addressFormControl">
+                <mat-error *ngIf="addressFormControl.hasError('required')"> Address is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Price per hour</mat-label>
+                <mat-label>Price per day</mat-label>
                 <input matInput required [formControl]="pricePerHourFormControl">
                 <mat-error *ngIf="pricePerHourFormControl.hasError('required')"> Price per hour is
                     <strong>required</strong> </mat-error>
@@ -44,7 +44,7 @@
     <div class="d-flex" *ngIf="action === 'Add'">
         <button mat-dialog-close class="primary-action-btn action-btn">Cancel</button>
         <button class="primary-action-btn action-btn ms-auto" [disabled]="nameFormControl.hasError('required') || 
-        imageLocationFormControl.hasError('required') || locationXFormControl.hasError('required') || 
+        addressFormControl.hasError('required') || locationXFormControl.hasError('required') || 
         locationYFormControl.hasError('required') || pricePerHourFormControl.hasError('required')"
             (click)="addLocation()">
             Add
@@ -62,9 +62,9 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Image location</mat-label>
-                <input matInput required [formControl]="imageLocationFormControl">
-                <mat-error *ngIf="imageLocationFormControl.hasError('required')"> Image location is <strong>required</strong>
+                <mat-label>Address</mat-label>
+                <input matInput required [formControl]="addressFormControl">
+                <mat-error *ngIf="addressFormControl.hasError('required')"> Address is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
 
@@ -94,7 +94,7 @@
     <div class="d-flex" *ngIf="action === 'Edit'">
         <button mat-dialog-close class="primary-action-btn action-btn">Cancel</button>
         <button class="primary-action-btn action-btn ms-auto" [disabled]="nameFormControl.hasError('required') || 
-        imageLocationFormControl.hasError('required') || locationXFormControl.hasError('required') || pricePerHourFormControl.hasError('required')
+        addressFormControl.hasError('required') || locationXFormControl.hasError('required') || pricePerHourFormControl.hasError('required')
         || locationYFormControl.hasError('requerd')"
             (click)="updateLocation()">
             Update
@@ -110,7 +110,7 @@
                     <td>Name: {{location.locationName}}</td>
                 </tr>
                 <tr>
-                    <td>Image location: {{location.imageLocation}}</td>
+                    <td>Address: {{location.address}}</td>
                 </tr>
                 <tr>
                     <td>Price per hour: {{location.pricePerHour}}</td>
