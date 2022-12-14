@@ -58,7 +58,7 @@ export class LoginOrRegisterComponent {
       let newAccount: Account = new Account();
       newAccount.email = this.emailFormControl.getRawValue() ?? "";
       newAccount.userName = this.usernameFormControl.getRawValue() ?? "";
-      newAccount.password = this.usernameFormControl.getRawValue() ?? "";
+      newAccount.password = this.passwordFormControl.getRawValue() ?? "";
       newAccount.phoneNumber = "0756514123";
       this.authService.register(newAccount).subscribe({
         next: () => {

@@ -43,8 +43,9 @@ export class WriteAReviewComponent implements OnInit {
       next: () => {
         this.notificationService.showSuccessNotification("Thank you for your feedback!");
       },
-      error: () => {
-        this.notificationService.showErrorNotification("There was a problem with your new review. Please try again!");
+      error: err => {
+        this.notificationService.showErrorNotification(err.error);
+        console.log(err);
       }
     });
   }
