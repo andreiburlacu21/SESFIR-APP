@@ -8,5 +8,4 @@ export class Booking {
     inDate?: string;
     outDate?: string;
     totalPrice?: number;
-    bookingEntity?: BookingEntity
 }

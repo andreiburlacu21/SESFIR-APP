@@ -56,11 +56,11 @@
                 <ng-container *ngIf="!bookingsAreLoading">
                     <div class="row mb-4" *ngFor="let booking of myBookings">
                         <div>
-                            <span class="me-2">Location:</span> {{ booking.bookingEntity?.location?.locationName }}
+                            <span class="me-2">Location:</span> {{ booking.location?.locationName }}
                         </div>
     
                         <div>
-                            <span class="me-2">Location address:</span> {{ booking.bookingEntity?.location?.address }}
+                            <span class="me-2">Location address:</span> {{ booking.location?.address }}
                         </div>
     
                         <div>
@@ -99,11 +99,11 @@
                 <ng-container *ngIf="!reviewsAreLoading">
                     <div class="row mb-5" *ngFor="let review of myReviews">
                         <div>
-                            <span class="me-2">Location:</span> {{ review.reviewEntity?.location?.locationName }}
+                            <span class="me-2">Location:</span> {{ review.location?.locationName }}
                         </div>
     
                         <div>
-                            <span class="me-2">Location address:</span> {{ review.reviewEntity?.location?.address }}
+                            <span class="me-2">Location address:</span> {{ review.location?.address }}
                         </div>
     
                         <div>

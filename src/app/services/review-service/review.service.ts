@@ -35,4 +35,8 @@ export class ReviewService {
   deleteReview(reviewId: string): Observable<boolean> {
     return this.httpClient.delete<boolean>(this.reqPath + "/" + reviewId);
   }
+  myReviews(): Observable<ReviewEntity[]>
+  {
+    return this.httpClient.get<ReviewEntity[]>(this.reqPath + "/MyEntities/" );
+  }
 }

@@ -20,8 +20,8 @@ export class BookingService {
     return this.httpClient.get<Booking[]>(this.reqPath + "/all");
   }
 
-  getBookingEntityById(bookingId: number): Observable<BookingEntity> {
-    return this.httpClient.get<BookingEntity>(this.reqPath + "/Entity/" + bookingId);
+  getBookingEntityById(bookingId: number): Observable<BookingEntity[]> {
+    return this.httpClient.get<BookingEntity[]>(this.reqPath + "/Entity/" + bookingId);
   }
 
   addBooking(booking: Booking): Observable<Booking> {

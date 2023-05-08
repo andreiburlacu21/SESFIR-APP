@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from 'src/app/models/account.model';
+import { BookingEntity } from 'src/app/models/booking-entity.model';
 import { Booking } from 'src/app/models/booking.model';
+import { ReviewEntity } from 'src/app/models/review-entity.model';
 import { Review } from 'src/app/models/review.model';
 import { AccountService } from 'src/app/services/account-service/account.service';
 import { BookingService } from 'src/app/services/booking-service/booking.service';
@@ -18,8 +20,8 @@ export class ProfileComponent implements OnInit {
   bookingsAreLoading: boolean = false;
   account: Account = new Account();
   userWantsToUpdate: boolean = false;
-  myReviews: Review[] = [];
-  myBookings: Booking[] = [];
+  myReviews: ReviewEntity[] = [];
+  myBookings: BookingEntity[] = [];
 
   constructor(
     private readonly notificationService: NotificationService,
@@ -51,26 +53,10 @@ export class ProfileComponent implements OnInit {
 
   private getAllReviews() {
     this.reviewsAreLoading = true;
-    this.reviewService.getAllReviews().subscribe({
+    this.reviewService.myReviews().subscribe({
       next: resp => {
-        this.myReviews = resp.filter(review => review.accountId === this.account.accountId);
-        let reviewsLoaded: number = 0;
-        this.myReviews.forEach(review => {
-          this.reviewService.getReviewEntityById(review.reviewId!!).subscribe({
-            next: resp => {
-              review.reviewEntity = resp;
-              reviewsLoaded++;
-
-              if(reviewsLoaded === this.myReviews.length) {
-                this.reviewsAreLoading = false;
-              }
-            },
-            error: () => {
-              this.reviewsAreLoading = false;
-              this.notificationService.showErrorNotification("There was an error while a review's data!");
-            }
-          });
-        });
+        this.myReviews = resp;
+        this.reviewsAreLoading = false;       
       },
       error: () => {
         this.reviewsAreLoading = false;
@@ -81,26 +67,11 @@ export class ProfileComponent implements OnInit {
 
   private getAllBookings() {
     this.bookingsAreLoading = true;
-    this.bookingService.getAllBookings().subscribe({
+    this.bookingService.getBookingEntityById(this.account.accountId!!).subscribe({
       next: resp => {
-        this.myBookings = resp.filter(booking => booking.accountId === this.account.accountId);
-        let bookingsLoaded: number = 0;
-        this.myBookings.forEach(booking => {
-          this.bookingService.getBookingEntityById(booking.bookingId!!).subscribe({
-            next: resp => {
-              booking.bookingEntity = resp;
-              bookingsLoaded++;
+        this.myBookings = resp;
 
-              if(bookingsLoaded === this.myBookings.length) {
-                this.bookingsAreLoading = false;
-              }
-            },
-            error: () => {
-              this.bookingsAreLoading = false;
-              this.notificationService.showErrorNotification("There was an error while a booking's data!");
-            }
-          });
-        });
+        this.bookingsAreLoading = false;
       },
       error: () => {
         this.bookingsAreLoading = false;
