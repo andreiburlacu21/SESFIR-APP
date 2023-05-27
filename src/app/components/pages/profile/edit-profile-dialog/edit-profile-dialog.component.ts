@@ -55,7 +55,7 @@ export class EditProfileDialogComponent implements OnInit {
   }
 
   deleteAccount(): void {
-
+    this.dialogRef.close({ event: 'Delete', data: this.account.accountId })
   }
 
   changePassword(): void {

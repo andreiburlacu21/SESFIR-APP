@@ -10,6 +10,7 @@ import { NotificationService } from 'src/app/services/notification-service/notif
 import { ReviewService } from 'src/app/services/review-service/review.service';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { Action } from 'src/app/utils/interceptor/admin-actions';
+import { AuthenticationService } from 'src/app/services/authentication-service/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private readonly notificationService: NotificationService,
     private readonly accountService: AccountService,
+    private readonly authService: AuthenticationService,
     private readonly bookingService: BookingService,
     private readonly reviewService: ReviewService,
     private readonly dialog: MatDialog
@@ -49,7 +51,6 @@ export class ProfileComponent implements OnInit {
     this.accountService.getMyData().subscribe({
       next: resp => {
         this.account = resp;
-        console.log("DATA: ", this.account);
         this.setCurrentAccountInfoInCaseUserWantsToEdit();
         this.getAllReviews();
         this.getAllBookings();
@@ -91,6 +92,7 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         this.bookingsAreLoading = false;
+        console.log(err);
         this.notificationService.showErrorNotification("There was an error while loading your bookings!");
       }
     });
@@ -139,15 +141,15 @@ export class ProfileComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(accountId => {
-      // if(accountId.data) {
-      //   this.accountService.deleteAccount(accountId.data).subscribe(resp => {
-      //     if(resp) {
-      //       this.notificationService.showSuccessNotification("Account deleted!");
-      //       this.getAllAccounts();
-      //     }
-      //   });
-      // }
-      // TODO: delete account
+      if (accountId.data) {
+        this.accountService.deleteAccount(accountId.data).subscribe(resp => {
+          if (resp) {
+            this.notificationService.showSuccessNotification("Sorry to see you go!");
+            
+            this.authService.logOut();
+          }
+        });
+      }
     });
   }
 

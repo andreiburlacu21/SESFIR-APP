@@ -3,7 +3,8 @@
         <div class="d-flex justify-content-center mt-3">
             <mat-icon class="profile-icon">account_circle</mat-icon>
 
-            <button *ngIf="userWantsToUpdate" mat-mini-fab class="action-fab-btn add-photo-btn" (click)="addProfilePicture()">
+            <button *ngIf="userWantsToUpdate" mat-mini-fab class="action-fab-btn add-photo-btn"
+                (click)="addProfilePicture()">
                 <mat-icon> add_a_photo </mat-icon>
             </button>
         </div>
@@ -16,20 +17,23 @@
             <div class="d-flex align-items-center">
                 <h1>Account information:</h1>
 
-                <button *ngIf="userWantsToUpdate" class="col-2 pb-2 ms-auto d-flex align-items-center justify-content-center me-3 discard-btn primary-text mb-3 hover-underline-animation"
-                (click)="discardChanges()">
+                <button *ngIf="userWantsToUpdate"
+                    class="col-2 pb-2 ms-auto d-flex align-items-center justify-content-center me-3 discard-btn primary-text mb-3 hover-underline-animation"
+                    (click)="discardChanges()">
                     <mat-icon class="pe-4 me-1"> cancel </mat-icon>
                     Discard changes
                 </button>
-            
-                <button *ngIf="!userWantsToUpdate" class="col-1 pb-2 ms-auto d-flex align-items-center justify-content-center edit-btn primary-text mb-3 hover-underline-animation"
-                (click)="userWantsToEdit()">
+
+                <button *ngIf="!userWantsToUpdate"
+                    class="col-1 pb-2 ms-auto d-flex align-items-center justify-content-center edit-btn primary-text mb-3 hover-underline-animation"
+                    (click)="userWantsToEdit()">
                     <mat-icon class="me-1"> edit </mat-icon>
                     Edit
                 </button>
 
-                <button *ngIf="userWantsToUpdate" class="col-2 pb-2 d-flex align-items-center justify-content-center save-btn primary-text mb-3 hover-underline-animation"
-                (click)="saveChanges()">
+                <button *ngIf="userWantsToUpdate"
+                    class="col-2 pb-2 d-flex align-items-center justify-content-center save-btn primary-text mb-3 hover-underline-animation"
+                    (click)="saveChanges()">
                     <mat-icon class="me-1"> save </mat-icon>
                     Save changes
                 </button>
@@ -40,12 +44,12 @@
                     <span class="label me-1">Email: </span>
                     <span> {{ account.email }} </span>
                 </div>
-        
+
                 <div class="mt-2">
                     <span class="label me-1">Username: </span>
                     <span> {{ account.userName }} </span>
                 </div>
-        
+
                 <div class="mt-2">
                     <span class="label me-1">Phone number: </span>
                     <span> {{ account.phoneNumber }} </span>
@@ -57,22 +61,24 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Add new email</mat-label>
                         <input class="text-center" matInput required [formControl]="emailFormControl">
-                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')"> Please
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            Please
                             enter a valid email address! </mat-error>
                         <mat-error *ngIf="emailFormControl.hasError('required')"> Email is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
-        
+
                 <div class="mt-2 col-2 d-flex justify-content-center">
                     <mat-form-field appearance="outline">
                         <mat-label>Edit username</mat-label>
                         <input class="text-center" matInput required [formControl]="usernameFormControl">
-                        <mat-error *ngIf="usernameFormControl.hasError('required')"> Username is <strong>required</strong>
+                        <mat-error *ngIf="usernameFormControl.hasError('required')"> Username is
+                            <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
-        
+
                 <div class="mt-2 col-2 d-flex justify-content-center">
                     <mat-form-field appearance="outline">
                         <mat-label>Edit phone number</mat-label>
@@ -83,15 +89,17 @@
                 </div>
 
                 <div class="mt-3 col-2 d-flex justify-content-center">
-                    <button class="d-flex align-items-center change-password-btn hover-underline-animation primary-text" (click)="changePassword()"> 
-                        Change your password 
+                    <button class="d-flex align-items-center change-password-btn hover-underline-animation primary-text"
+                        (click)="changePassword()">
+                        Change your password
                     </button>
                 </div>
 
                 <div class="mt-5">
-                    <button class="d-flex align-items-center ms-auto delete-account-btn delete-btn" (click)="deleteAccount()"> 
+                    <button class="d-flex align-items-center ms-auto delete-account-btn delete-btn"
+                        (click)="deleteAccount()">
                         <mat-icon class="me-1"> delete </mat-icon>
-                        Delete this account 
+                        Delete this account
                     </button>
                 </div>
             </div>
@@ -117,28 +125,30 @@
 
                 <ng-container *ngIf="!bookingsAreLoading">
                     <div class="row mb-4" *ngFor="let booking of myBookings">
-                        <div>
-                            <span class="me-2">Location:</span> {{ booking.location?.locationName }}
-                        </div>
-    
-                        <div>
-                            <span class="me-2">Location address:</span> {{ booking.location?.address }}
-                        </div>
-    
-                        <div>
-                            <span class="me-2">From:</span> {{ booking.inDate | date : "dd-MM-yyyy" }}
-                        </div>
-    
-                        <div>
-                            <span class="me-2">To:</span> {{ booking.outDate | date : "dd-MM-yyyy" }}
-                        </div>
-    
-                        <div>
-                            <span class="me-2">Total cost:</span> {{ booking.totalPrice }}
-                        </div>
+                        <mat-card class="history-card">
+                            <div>
+                                <span class="me-2">Location:</span> {{ booking.location?.locationName }}
+                            </div>
+
+                            <div>
+                                <span class="me-2">Location address:</span> {{ booking.location?.address }}
+                            </div>
+
+                            <div>
+                                <span class="me-2">From:</span> {{ booking.inDate | date : "dd-MM-yyyy" }}
+                            </div>
+
+                            <div>
+                                <span class="me-2">To:</span> {{ booking.outDate | date : "dd-MM-yyyy" }}
+                            </div>
+
+                            <div>
+                                <span class="me-2">Total cost:</span> {{ booking.totalPrice }}
+                            </div>
+                        </mat-card>
                     </div>
                 </ng-container>
-              
+
             </mat-expansion-panel>
         </mat-accordion>
 
@@ -160,26 +170,28 @@
 
                 <ng-container *ngIf="!reviewsAreLoading">
                     <div class="row mb-5" *ngFor="let review of myReviews">
-                        <div>
-                            <span class="me-2">Location:</span> {{ review.location?.locationName }}
-                        </div>
-    
-                        <div>
-                            <span class="me-2">Location address:</span> {{ review.location?.address }}
-                        </div>
-    
-                        <div>
-                            <span class="me-2">Comment:</span> {{ review.description }}
-                        </div>
-    
-                        <div>
-                            <span class="me-2">Date:</span> {{ review.date | date : "dd-MM-yyyy" }}
-                        </div>
-    
-                        <div>
-                            <span class="me-2 pt-1">Rate:</span>
-                            <app-star-rating [rating]="review.grade!" [readonly]="true"></app-star-rating>
-                        </div>
+                        <mat-card class="history-card">
+                            <div>
+                                <span class="me-2">Location:</span> {{ review.location?.locationName }}
+                            </div>
+
+                            <div>
+                                <span class="me-2">Location address:</span> {{ review.location?.address }}
+                            </div>
+
+                            <div>
+                                <span class="me-2">Comment:</span> {{ review.description }}
+                            </div>
+
+                            <div>
+                                <span class="me-2">Date:</span> {{ review.date | date : "dd-MM-yyyy" }}
+                            </div>
+
+                            <div>
+                                <span class="me-2 pt-1">Rate:</span>
+                                <app-star-rating [rating]="review.grade!" [readonly]="true"></app-star-rating>
+                            </div>
+                        </mat-card>
                     </div>
                 </ng-container>
             </mat-expansion-panel>
