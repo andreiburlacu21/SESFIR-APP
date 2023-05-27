@@ -16,16 +16,22 @@
             <div class="d-flex align-items-center">
                 <h1>Account information:</h1>
 
-                <button *ngIf="!userWantsToUpdate" class="col-1 edit-btn primary-text mb-3 hover-underline-animation ms-auto d-flex align-items-center"
+                <button *ngIf="userWantsToUpdate" class="col-2 pb-2 ms-auto d-flex align-items-center justify-content-center me-3 discard-btn primary-text mb-3 hover-underline-animation"
+                (click)="discardChanges()">
+                    <mat-icon class="pe-4 me-1"> cancel </mat-icon>
+                    Discard changes
+                </button>
+            
+                <button *ngIf="!userWantsToUpdate" class="col-1 pb-2 ms-auto d-flex align-items-center justify-content-center edit-btn primary-text mb-3 hover-underline-animation"
                 (click)="userWantsToEdit()">
                     <mat-icon class="me-1"> edit </mat-icon>
                     Edit
                 </button>
 
-                <button *ngIf="userWantsToUpdate" class="col-2 edit-btn primary-text mb-3 hover-underline-animation ms-auto d-flex align-items-center"
+                <button *ngIf="userWantsToUpdate" class="col-2 pb-2 d-flex align-items-center justify-content-center save-btn primary-text mb-3 hover-underline-animation"
                 (click)="saveChanges()">
                     <mat-icon class="me-1"> save </mat-icon>
-                    Save
+                    Save changes
                 </button>
             </div>
 
@@ -47,7 +53,7 @@
             </div>
 
             <div *ngIf="userWantsToUpdate">
-                <div class="mt-2">
+                <div class="mt-2 col-2 d-flex justify-content-center">
                     <mat-form-field appearance="outline">
                         <mat-label>Add new email</mat-label>
                         <input class="text-center" matInput required [formControl]="emailFormControl">
@@ -58,7 +64,7 @@
                     </mat-form-field>
                 </div>
         
-                <div class="mt-2">
+                <div class="mt-2 col-2 d-flex justify-content-center">
                     <mat-form-field appearance="outline">
                         <mat-label>Edit username</mat-label>
                         <input class="text-center" matInput required [formControl]="usernameFormControl">
@@ -67,7 +73,7 @@
                     </mat-form-field>
                 </div>
         
-                <div class="mt-2">
+                <div class="mt-2 col-2 d-flex justify-content-center">
                     <mat-form-field appearance="outline">
                         <mat-label>Edit phone number</mat-label>
                         <input class="text-center" matInput required [formControl]="phoneNumberFormControl">
@@ -76,8 +82,8 @@
                     </mat-form-field>
                 </div>
 
-                <div class="mt-3">
-                    <button class="d-flex align-items-center change-password-btn" (click)="changePassword()"> 
+                <div class="mt-3 col-2 d-flex justify-content-center">
+                    <button class="d-flex align-items-center change-password-btn hover-underline-animation primary-text" (click)="changePassword()"> 
                         Change your password 
                     </button>
                 </div>

@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
     this.reviewService.myReviews().subscribe({
       next: resp => {
         this.myReviews = resp;
-        this.reviewsAreLoading = false;       
+        this.reviewsAreLoading = false;
       },
       error: () => {
         this.reviewsAreLoading = false;
@@ -84,12 +84,9 @@ export class ProfileComponent implements OnInit {
 
   private getAllBookings() {
     this.bookingsAreLoading = true;
-    console.log(this.account.accountId)
     this.bookingService.getBookingEntityById(this.account.accountId!!).subscribe({
       next: resp => {
         this.myBookings = resp;
-
-        console.log(this.myBookings);
 
         this.bookingsAreLoading = false;
       },
@@ -104,13 +101,34 @@ export class ProfileComponent implements OnInit {
     this.userWantsToUpdate = true;
   }
 
+  discardChanges(): void {
+    this.userWantsToUpdate = false;
+  }
+
   saveChanges(): void {
     this.userWantsToUpdate = false;
     // TODO: update account info in the db
   }
 
   changePassword(): void {
-    // TODO: change password
+    let dialogRef = this.dialog.open(EditProfileDialogComponent, {
+      data: {
+        action: Action.UPDATE,
+        account: this.account
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(accountId => {
+      // if(accountId.data) {
+      //   this.accountService.deleteAccount(accountId.data).subscribe(resp => {
+      //     if(resp) {
+      //       this.notificationService.showSuccessNotification("Account deleted!");
+      //       this.getAllAccounts();
+      //     }
+      //   });
+      // }
+      // TODO: change password
+    });
   }
 
   deleteAccount(): void {
@@ -130,6 +148,7 @@ export class ProfileComponent implements OnInit {
       //     }
       //   });
       // }
+      // TODO: delete account
     });
   }
 
