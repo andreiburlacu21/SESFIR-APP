@@ -14,10 +14,14 @@ export class ImageService {
   }
 
   uploadImage(image: FormData): Observable<any> {
+    
     return this.httpClient.post(this.reqPath + "/UpdateImage", image);
   }
 
   getImages(type: string, id: number): Observable<string[]> {
+    console.log(this.reqPath + "/GetImages/" + type + "/" + id);
+
+    console.log(this.httpClient.get<string[]>(this.reqPath + "/GetImages/" + type + "/" + id));
     return this.httpClient.get<string[]>(this.reqPath + "/GetImages/" + type + "/" + id);
   }
 }

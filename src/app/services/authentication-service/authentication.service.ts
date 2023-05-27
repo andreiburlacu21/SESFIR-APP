@@ -67,6 +67,16 @@ export class AuthenticationService {
     return TokenData.Identifier;
   }
 
+  getUsername(): string {
+    const value = localStorage.getItem(this.AUTH);
+
+    if (value !== 'undefined' && value ) {
+      return (JSON.parse(value) as TokenData).userName;
+    }
+
+    return "";
+  }
+
   public checkTokenData(): void {
     if (this.getAccessToken() !== "NULL") {
 

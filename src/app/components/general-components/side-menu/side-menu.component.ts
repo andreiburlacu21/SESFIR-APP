@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication-service/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-side-menu',
@@ -11,12 +14,37 @@ export class SideMenuComponent implements OnInit {
   @Input() currentTheme: String | undefined;
   @Output() themeChanged = new EventEmitter<{ changeToDarkMode: boolean }>();
   isDarkModeSelected: boolean = false;
+  elem: any;
+  isFullScreenModeEnabled: boolean = false;
+  loggedInUsername: string = "";
 
-  constructor(public router: Router) {}
+
+  constructor(
+    public router: Router,
+    private readonly authService: AuthenticationService,
+    @Inject(DOCUMENT) private document: any) {
+  }
 
   ngOnInit(): void {
-    if(this.currentTheme === 'DARK') {
+    this.elem = document.documentElement;
+    this.loggedInUsername = this.authService.getUsername();
+
+    if (this.currentTheme === 'DARK') {
       this.isDarkModeSelected = true;
+    }
+  }
+
+  enterFullscreenMode() {
+    if (this.elem.requestFullscreen) {
+      this.elem.requestFullscreen();
+      this.isFullScreenModeEnabled = true;
+    } 
+  }
+
+  closeFullscreenMode() {
+    if(this.isFullScreenModeEnabled) {
+      this.document.exitFullscreen();
+      this.isFullScreenModeEnabled = false;
     }
   }
 
@@ -25,9 +53,5 @@ export class SideMenuComponent implements OnInit {
     this.themeChanged.emit({
       changeToDarkMode: this.isDarkModeSelected
     });
-  }
-
-  logout() {
-    // TODO: logout
   }
 }

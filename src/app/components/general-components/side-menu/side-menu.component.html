@@ -1,5 +1,24 @@
 <div class="border-bottom pb-3 pt-3">
     <div class="d-flex justify-content-center align-items-center">
+        <mat-icon class="me-1">person</mat-icon>
+        {{ loggedInUsername }}
+    </div>
+</div>
+<div class="border-bottom pb-3 pt-3">
+    <div class="d-flex justify-content-center align-items-center mb-2">
+        <button *ngIf="!isFullScreenModeEnabled" class="menu-btn primary-text" (click)="enterFullscreenMode()">
+            <mat-icon>
+                fullscreen
+            </mat-icon>
+        </button>
+
+        <button *ngIf="isFullScreenModeEnabled" class="menu-btn primary-text" (click)="closeFullscreenMode()">
+            <mat-icon>
+                fullscreen_exit
+            </mat-icon>
+        </button>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
         <mat-icon class="me-1 light-mode-icon" [ngClass]="!isDarkModeSelected ? 'active-icon-fill' : ''">
             light_mode
         </mat-icon>

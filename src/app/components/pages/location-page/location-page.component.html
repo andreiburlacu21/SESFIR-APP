@@ -1,4 +1,4 @@
-<div class="row page-container d-flex justify-content-center">
+<div class="row page-container d-flex justify-content-center mb-2">
     <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="m-0 p-0"></mat-progress-bar>
 
     <mat-card class="row col-10 mt-3">
@@ -53,7 +53,7 @@
         </div>
 
         <mat-card-content *ngIf="reviews.length > 0" class="row mt-3 d-flex justify-content-center reviews-card">
-            <mat-card class="row mb-2 review-card" *ngFor="let review of reviews; index as i">
+            <mat-card class="row mb-2 review" *ngFor="let review of reviews; index as i">
                 <mat-card-header>
                     <mat-card-subtitle class="pt-1"> {{i+1}}. <span class="ms-2"> {{review.reviewEntity?.account?.userName}}</span>
                     </mat-card-subtitle>

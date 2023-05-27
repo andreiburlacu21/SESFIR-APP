@@ -6,4 +6,5 @@ export class Location {
     pricePerHour?: number; 
     locationX?: number;
     locationY?: number;
+    headerImage?: string;
 }

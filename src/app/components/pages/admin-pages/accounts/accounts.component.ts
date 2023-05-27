@@ -31,6 +31,7 @@ export class AccountsComponent implements OnInit {
     this.accountService.getAllAccounts().subscribe({
       next: resp => {
         this.accounts = resp;
+        console.log(this.accounts);
         this.isLoading = false;
       },
       error: () => {

@@ -5,6 +5,7 @@ import { LocationWithAllDetails } from 'src/app/models/location-with-all-details
 import { Location } from 'src/app/models/location.model';
 import { Review } from 'src/app/models/review.model';
 import { BookingService } from 'src/app/services/booking-service/booking.service';
+import { ImageService } from 'src/app/services/image-service/image.service';
 import { LocationService } from 'src/app/services/location-service/location.service';
 import { ReviewService } from 'src/app/services/review-service/review.service';
 import { environment } from 'src/environments/environment';
@@ -23,12 +24,14 @@ export class HomeComponent implements OnInit {
   filteredLocations: Location[] = [];
   bookings: Booking[] = []
   reviews: Review[] = []
-  searchInput: string = ""
+  searchInputByName: string = ""
+  searchInputByAddress: string = ""
 
   constructor(
     private readonly locationService: LocationService,
     private readonly bookingService: BookingService,
     private readonly reviewService: ReviewService,
+    private readonly imageService: ImageService,
     private readonly router: Router
   ) { }
 
@@ -40,11 +43,25 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  private getHeaderImage(localion: Location) {
+    this.imageService.getImages("location", localion.locationId!).subscribe({
+      next: images => {
+        localion.headerImage = images[0];
+      }, 
+      error: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
   private loadData() {
     this.isLoading = true;
     this.locationService.getAllLocations().subscribe({ // get all locations
       next: locations => {
         this.locations = locations;
+
+        this.locations.forEach(foundLocation => this.getHeaderImage(foundLocation));
+
         this.filteredLocations = this.locations;
 
         this.reviewService.getAllReviews().subscribe({ // get all reviews
@@ -72,12 +89,28 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  search() {
-    if(this.searchInput !== "") {
-      this.filteredLocations = this.locations.filter(location => location.locationName?.includes(this.searchInput));
+  searchByName() {
+    if(this.searchInputByName !== "") {
+      this.searchInputByAddress = "";
+      this.filteredLocations = this.locations.filter(location => location.locationName?.includes(this.searchInputByName));
     } else {
       this.filteredLocations = this.locations;
     }
+  }
+
+  searchByAddress() {
+    if(this.searchInputByAddress !== "") {
+      this.searchInputByName = ""
+      this.filteredLocations = this.locations.filter(location => location.address?.includes(this.searchInputByAddress));
+    } else {
+      this.filteredLocations = this.locations;
+    }
+  }
+
+  clearFilters() {
+    this.searchInputByName = ""
+    this.searchInputByAddress = "";
+    this.filteredLocations = this.locations;
   }
 
   calculateLocationRating(locationId: number): number {

@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Account } from 'src/app/models/account.model';
 import { BookingEntity } from 'src/app/models/booking-entity.model';
-import { Booking } from 'src/app/models/booking.model';
 import { ReviewEntity } from 'src/app/models/review-entity.model';
-import { Review } from 'src/app/models/review.model';
 import { AccountService } from 'src/app/services/account-service/account.service';
 import { BookingService } from 'src/app/services/booking-service/booking.service';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
 import { ReviewService } from 'src/app/services/review-service/review.service';
+import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
+import { Action } from 'src/app/utils/interceptor/admin-actions';
 
 @Component({
   selector: 'app-profile',
@@ -23,11 +25,18 @@ export class ProfileComponent implements OnInit {
   myReviews: ReviewEntity[] = [];
   myBookings: BookingEntity[] = [];
 
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  usernameFormControl = new FormControl('', [Validators.required]);
+  phoneNumberFormControl = new FormControl('', [Validators.required]);
+  passwordFormControl = new FormControl('', [Validators.required]);
+  confirmPasswordFormControl = new FormControl('', [Validators.required]);
+
   constructor(
     private readonly notificationService: NotificationService,
     private readonly accountService: AccountService,
     private readonly bookingService: BookingService,
-    private readonly reviewService: ReviewService
+    private readonly reviewService: ReviewService,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +49,8 @@ export class ProfileComponent implements OnInit {
     this.accountService.getMyData().subscribe({
       next: resp => {
         this.account = resp;
+        console.log("DATA: ", this.account);
+        this.setCurrentAccountInfoInCaseUserWantsToEdit();
         this.getAllReviews();
         this.getAllBookings();
         this.isLoading = false;
@@ -49,6 +60,12 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  private setCurrentAccountInfoInCaseUserWantsToEdit(): void {
+    this.emailFormControl.setValue(this.account.email!);
+    this.usernameFormControl.setValue(this.account.userName!);
+    this.phoneNumberFormControl.setValue(this.account.phoneNumber!);
   }
 
   private getAllReviews() {
@@ -67,9 +84,12 @@ export class ProfileComponent implements OnInit {
 
   private getAllBookings() {
     this.bookingsAreLoading = true;
+    console.log(this.account.accountId)
     this.bookingService.getBookingEntityById(this.account.accountId!!).subscribe({
       next: resp => {
         this.myBookings = resp;
+
+        console.log(this.myBookings);
 
         this.bookingsAreLoading = false;
       },
@@ -78,5 +98,42 @@ export class ProfileComponent implements OnInit {
         this.notificationService.showErrorNotification("There was an error while loading your bookings!");
       }
     });
+  }
+
+  userWantsToEdit(): void {
+    this.userWantsToUpdate = true;
+  }
+
+  saveChanges(): void {
+    this.userWantsToUpdate = false;
+    // TODO: update account info in the db
+  }
+
+  changePassword(): void {
+    // TODO: change password
+  }
+
+  deleteAccount(): void {
+    let dialogRef = this.dialog.open(EditProfileDialogComponent, {
+      data: {
+        action: Action.DELETE,
+        account: this.account
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(accountId => {
+      // if(accountId.data) {
+      //   this.accountService.deleteAccount(accountId.data).subscribe(resp => {
+      //     if(resp) {
+      //       this.notificationService.showSuccessNotification("Account deleted!");
+      //       this.getAllAccounts();
+      //     }
+      //   });
+      // }
+    });
+  }
+
+  addProfilePicture(): void {
+    // TODO: add profile picture
   }
 }

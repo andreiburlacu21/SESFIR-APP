@@ -21,3 +21,26 @@
 .loading-spinner {
     transform: scale(1);
 }
+
+.edit-btn {
+    width: 5%;
+    height: 50%;
+    background-color: transparent !important;
+    border: none;
+}
+
+.change-password-btn {
+    background-color: #4885BA !important;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: -2px;
+}
+
+.delete-account-btn {
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}

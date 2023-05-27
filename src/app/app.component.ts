@@ -1,7 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AccountService } from './services/account-service/account.service';
 import { AuthenticationService } from './services/authentication-service/authentication.service';
 import { NotificationService } from './services/notification-service/notification.service';
 
