@@ -5,7 +5,6 @@ import { Account } from 'src/app/models/account.model';
 import Authentication from 'src/app/models/authentication.model';
 import { AuthenticationService } from 'src/app/services/authentication-service/authentication.service';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login-or-register',
@@ -66,7 +65,7 @@ export class LoginOrRegisterComponent {
           this.userWantsToLogin = true;
           this.notificationService.showSuccessNotification("Account created!");
         }, error: (err) => {
-          this.notificationService.showSuccessNotification("Account creation failed!");
+          this.notificationService.showErrorNotification(err.error);
           console.log(err);
         }
       }

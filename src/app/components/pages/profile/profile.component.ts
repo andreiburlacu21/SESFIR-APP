@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Account } from 'src/app/models/account.model';
-import { BookingEntity } from 'src/app/models/booking-entity.model';
+import { BookingWithEntities } from 'src/app/models/booking-entity.model';
 import { ReviewEntity } from 'src/app/models/review-entity.model';
 import { AccountService } from 'src/app/services/account-service/account.service';
 import { BookingService } from 'src/app/services/booking-service/booking.service';
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   account: Account = new Account();
   userWantsToUpdate: boolean = false;
   myReviews: ReviewEntity[] = [];
-  myBookings: BookingEntity[] = [];
+  myBookings: BookingWithEntities[] = [];
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   usernameFormControl = new FormControl('', [Validators.required]);
@@ -84,13 +84,12 @@ export class ProfileComponent implements OnInit {
 
   private getAllBookings() {
     this.bookingsAreLoading = true;
-    this.bookingService.getBookingEntityById(this.account.accountId!!).subscribe({
+    this.bookingService.getMyBookings().subscribe({
       next: resp => {
         this.myBookings = resp;
-
         this.bookingsAreLoading = false;
       },
-      error: () => {
+      error: (err) => {
         this.bookingsAreLoading = false;
         this.notificationService.showErrorNotification("There was an error while loading your bookings!");
       }

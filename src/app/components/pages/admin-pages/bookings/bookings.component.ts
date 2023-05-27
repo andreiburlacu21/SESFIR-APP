@@ -28,7 +28,11 @@ export class BookingsComponent implements OnInit {
     this.isLoading = true;
     this.bookingService.getAllBookings().subscribe({
       next: resp => {
-        this.bookings = resp;
+        this.bookings = resp.slice(2,resp.length);
+        // this.bookings.forEach(booking => booking.inDate = )
+
+
+
         console.log(this.bookings);
         this.isLoading = false;
       },
