@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Account } from 'src/app/models/account.model';
-import { BookingWithEntities } from 'src/app/models/booking-entity.model';
+import { BookingEntity } from 'src/app/models/booking-entity.model';
 import { ReviewEntity } from 'src/app/models/review-entity.model';
 import { AccountService } from 'src/app/services/account-service/account.service';
 import { BookingService } from 'src/app/services/booking-service/booking.service';
@@ -19,13 +19,12 @@ import { ImageService } from 'src/app/services/image-service/image.service';
 })
 export class ProfileComponent implements OnInit {
   isLoading: boolean = false;
-  imageLink!: string | null | ArrayBuffer;
   reviewsAreLoading: boolean = false;
   bookingsAreLoading: boolean = false;
   account: Account = new Account();
   userWantsToUpdate: boolean = false;
   myReviews: ReviewEntity[] = [];
-  myBookings: BookingWithEntities[] = [];
+  myBookings: BookingEntity[] = [];
   uploadedImage!: File;
   imageSelected: boolean = false;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
@@ -158,11 +157,5 @@ export class ProfileComponent implements OnInit {
   uploadFile(event: any) {
     this.uploadedImage = event.target.files[0];
     this.imageSelected = true;
-
-    const reader = new FileReader();
-    reader.onload = e => this.imageLink = reader.result;
-
-    reader.readAsDataURL(this.uploadedImage);
-
   }
 }
