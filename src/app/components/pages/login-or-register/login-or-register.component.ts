@@ -19,6 +19,7 @@ export class LoginOrRegisterComponent {
   userWantsToLogin: boolean = true;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   usernameFormControl = new FormControl('');
+  phoneNumberFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
@@ -49,7 +50,7 @@ export class LoginOrRegisterComponent {
 
           this.router.navigate([`/home`]);
         }
-      }, error: () => { }
+      }, error: () => { this.isLoading = false; }
     });
   }
 
@@ -59,7 +60,7 @@ export class LoginOrRegisterComponent {
       newAccount.email = this.emailFormControl.getRawValue() ?? "";
       newAccount.userName = this.usernameFormControl.getRawValue() ?? "";
       newAccount.password = this.passwordFormControl.getRawValue() ?? "";
-      newAccount.phoneNumber = "0756514123";
+      newAccount.phoneNumber = this.phoneNumberFormControl.getRawValue() ?? "";
       this.authService.register(newAccount).subscribe({
         next: () => {
           this.userWantsToLogin = true;

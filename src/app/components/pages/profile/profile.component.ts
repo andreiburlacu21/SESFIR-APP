@@ -158,16 +158,19 @@ export class ProfileComponent implements OnInit {
       }
     })
 
-    dialogRef.afterClosed().subscribe(accountId => {
-      // if(accountId.data) {
-      //   this.accountService.deleteAccount(accountId.data).subscribe(resp => {
-      //     if(resp) {
-      //       this.notificationService.showSuccessNotification("Account deleted!");
-      //       this.getAllAccounts();
-      //     }
-      //   });
-      // }
-      // TODO: change password
+    dialogRef.afterClosed().subscribe(accountWithNewPassword => {
+      if(accountWithNewPassword.data) {
+        this.accountService.updateAccount(accountWithNewPassword.data).subscribe({
+          next: resp => {
+            this.account = resp;
+            this.notificationService.showSuccessNotification("Password was changed!");
+          },
+          error: err => {
+            console.log(err);
+            this.notificationService.showErrorNotification("There was an error changing your password!");
+          }
+        });
+      }
     });
   }
 

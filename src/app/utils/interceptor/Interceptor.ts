@@ -29,7 +29,9 @@ export class Interceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           // Show errors as a toast 
           
-          this.notifyService.showErrorNotification(error.error);
+          if (!error.error.includes("No profile image set")) {
+            this.notifyService.showErrorNotification(error.error);
+          }
 
           return throwError(error);
         }),

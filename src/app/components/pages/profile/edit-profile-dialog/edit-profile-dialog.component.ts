@@ -19,10 +19,8 @@ export class EditProfileDialogComponent implements OnInit {
   usernameFormControl = new FormControl('', [Validators.required]);
   phoneNumberFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required]);
-
-
-
-
+  newPasswordFormControl = new FormControl('', [Validators.required]);
+  confirmNewpasswordFormControl = new FormControl('', [Validators.required]);
   eneteredPassword: string = "";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,19 +33,19 @@ export class EditProfileDialogComponent implements OnInit {
 
   private getPassedData() {
     this.action = this.data.action;
+    this.account = this.data.account;
 
+    // if (this.action !== Action.UPDATE) {
+    //   // this.account = this.data.account;
+    // }
 
-    if (this.action !== Action.UPDATE) {
-      // this.account = this.data.account;
-    }
+    // if (this.action === Action.DELETE) {
 
-    if (this.action === Action.DELETE) {
-      this.account = this.data.account;
-      // this.emailFormControl.setValue(this.account.email!!);
-      // this.usernameFormControl.setValue(this.account.userName!!);
-      // this.phoneNumberFormControl.setValue(this.account.phoneNumber!!);
-      // this.passwordFormControl.setValue(this.account.password!!);
-    }
+    //   // this.emailFormControl.setValue(this.account.email!!);
+    //   // this.usernameFormControl.setValue(this.account.userName!!);
+    //   // this.phoneNumberFormControl.setValue(this.account.phoneNumber!!);
+    //   // this.passwordFormControl.setValue(this.account.password!!);
+    // }
   }
 
   typePassword(eneteredPassword: string) {
@@ -59,6 +57,7 @@ export class EditProfileDialogComponent implements OnInit {
   }
 
   changePassword(): void {
-    
+    this.account.password = this.confirmNewpasswordFormControl.getRawValue()!;
+    this.dialogRef.close({ event: 'Edit', data: this.account })
   }
 }

@@ -1,6 +1,3 @@
-import { Injectable } from "@angular/core";
-import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
-import { Booking } from "../models/booking.model";
 import { BookingService } from "../services/booking-service/booking.service";
 
 export class DateHelper {

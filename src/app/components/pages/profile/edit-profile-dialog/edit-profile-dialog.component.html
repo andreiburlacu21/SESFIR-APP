@@ -1,8 +1,11 @@
 <div class="dialog-container">
-    <h1 mat-dialog-title> {{ action }} account</h1>
+    <h1 mat-dialog-title *ngIf="action === 'Delete'"> {{ action }} account</h1>
+    <h1 mat-dialog-title *ngIf="action === 'Edit'"> Change your password</h1>
 
     <!-- USER WANTS TO EDIT -->
     <div mat-dialog-content *ngIf="action === 'Edit'">
+        <p> Are you sure you want to change your password? Click cancel if you want to abort this action! </p>
+
         <div class="row justify-content-center">
             <mat-form-field appearance="outline">
                 <mat-label>Your current password</mat-label>
@@ -16,17 +19,17 @@
         <div class="row justify-content-center">
             <mat-form-field appearance="outline">
                 <mat-label>New password</mat-label>
-                <input matInput required type="password" [formControl]="passwordFormControl">
-                <mat-error *ngIf="passwordFormControl.hasError('required')"> New password is <strong>required</strong>
+                <input matInput required type="password" [formControl]="newPasswordFormControl">
+                <mat-error *ngIf="newPasswordFormControl.hasError('required')"> New password is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
         </div>
 
         <div class="row justify-content-center">
-            <mat-form-field appearance="outline">
+            <mat-form-field class="field" appearance="outline">
                 <mat-label> Confirm new password </mat-label>
-                <input matInput required type="password" [formControl]="passwordFormControl">
-                <mat-error *ngIf="passwordFormControl.hasError('required')"> New password confirmation is
+                <input matInput required type="password" [formControl]="confirmNewpasswordFormControl">
+                <mat-error *ngIf="confirmNewpasswordFormControl.hasError('required')"> New password confirmation is
                     <strong>required</strong>
                 </mat-error>
             </mat-form-field>
@@ -36,9 +39,12 @@
             <button mat-dialog-close class="primary-action-btn action-btn align-items-center ps-2 pe-2">
                 Cancel
             </button>
-            <button class="primary-action-btn delete-btn ms-auto" 
-            [ngClass]="eneteredPassword === account.password ? 'hover-underline-animation' : ''"
-            [disabled]="eneteredPassword !== account.password" (click)="changePassword()">
+            <button class="primary-action-btn primary-text delete-btn ms-auto" 
+            [ngClass]="passwordFormControl.getRawValue() === account.password && newPasswordFormControl.getRawValue() !== '' && 
+            confirmNewpasswordFormControl.getRawValue() !== '' &&
+            newPasswordFormControl.getRawValue() === confirmNewpasswordFormControl.getRawValue() ? 'hover-underline-animation' : ''"
+            [disabled]="passwordFormControl.getRawValue() !== account.password || newPasswordFormControl.getRawValue() === '' || confirmNewpasswordFormControl.getRawValue() === '' ||
+            newPasswordFormControl.getRawValue() !== confirmNewpasswordFormControl.getRawValue()" (click)="changePassword()">
                 Change password
             </button>
         </div>

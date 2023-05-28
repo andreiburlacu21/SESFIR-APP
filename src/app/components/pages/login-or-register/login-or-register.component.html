@@ -48,6 +48,12 @@
                     <input matInput required [formControl]="usernameFormControl">
                     <mat-error *ngIf="usernameFormControl.hasError('required')"> Username is <strong>required</strong> </mat-error>
                 </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Phone number</mat-label>
+                    <input matInput required [formControl]="phoneNumberFormControl">
+                    <mat-error *ngIf="phoneNumberFormControl.hasError('required')"> Phone number is <strong>required</strong> </mat-error>
+                </mat-form-field>
     
                 <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
