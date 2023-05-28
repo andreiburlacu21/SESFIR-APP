@@ -1,4 +1,4 @@
-import { BookingEntity } from "./booking-entity.model";
+import { BookingWithEntities } from "./booking-entity.model";
 
 export class Booking {
     bookingId?: number;

@@ -7,6 +7,6 @@
     border: none;
 }
 
-.cancel-btn {
-
+.delete-btn:disabled {
+    color: gray !important;
 }
