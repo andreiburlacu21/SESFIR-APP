@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: "http://localhost:49830/SESFIR/",
+  apiBaseUrl: "https://localhost:7226/SESFIR/",
   isAdmin: false,
   theme: 'LIGHT',
   hideSidenav: false,

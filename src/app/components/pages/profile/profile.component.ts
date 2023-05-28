@@ -10,7 +10,6 @@ import { NotificationService } from 'src/app/services/notification-service/notif
 import { ReviewService } from 'src/app/services/review-service/review.service';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { Action } from 'src/app/utils/interceptor/admin-actions';
-import { ImageService } from 'src/app/services/image-service/image.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,8 +24,7 @@ export class ProfileComponent implements OnInit {
   userWantsToUpdate: boolean = false;
   myReviews: ReviewEntity[] = [];
   myBookings: BookingEntity[] = [];
-  uploadedImage!: File;
-  imageSelected: boolean = false;
+
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   usernameFormControl = new FormControl('', [Validators.required]);
   phoneNumberFormControl = new FormControl('', [Validators.required]);
@@ -38,7 +36,6 @@ export class ProfileComponent implements OnInit {
     private readonly accountService: AccountService,
     private readonly bookingService: BookingService,
     private readonly reviewService: ReviewService,
-    private readonly imageService: ImageService,
     private readonly dialog: MatDialog
   ) { }
 
@@ -137,25 +134,6 @@ export class ProfileComponent implements OnInit {
   }
 
   addProfilePicture(): void {
-    const formData = new FormData();
-    
-    formData.append("file", this.uploadedImage);
-    formData.append("id", this.account.accountId?.toString() ?? "0");
-    formData.append("type", "Profile");
-    this.imageService.uploadImage(formData).subscribe({
-      next: () => {
-        this.notificationService.showSuccessNotification("Image uploaded!");
-      },
-      error: err => {
-        this.notificationService.showErrorNotification("Upload failed!");
-      }
-    });
-  }
-  
-
-
-  uploadFile(event: any) {
-    this.uploadedImage = event.target.files[0];
-    this.imageSelected = true;
+    // TODO: add profile picture
   }
 }
