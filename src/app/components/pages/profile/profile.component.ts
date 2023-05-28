@@ -79,6 +79,7 @@ export class ProfileComponent implements OnInit {
         this.imageLink = resp[0];
       },
       error: () => {
+        this.imageLink = null;
         //this.notificationService.showErrorNotification("There was a problem loading your data!");
       }
     });
@@ -119,7 +120,7 @@ export class ProfileComponent implements OnInit {
 
   discardChanges(): void {
     this.userWantsToUpdate = false;
-    this.imageLink = null;
+    this.setProfilePicture();
   }
 
   saveChanges(): void {

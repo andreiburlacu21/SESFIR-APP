@@ -2,7 +2,7 @@
     <mat-card class="row profile-card col-7 mt-3">
         <div class="d-flex justify-content-center mt-3">
             <div class="profile-image">
-                <img id="blah" class="profile-image" [src]="imageLink || 'http://placehold.it/180'" alt="your image" />
+                <img id="blah" class="profile-image" [src]="imageLink || 'https://thumbs.dreamstime.com/z/default-avatar-profile-icon-vector-default-avatar-profile-icon-vector-social-media-user-image-vector-illustration-227787227.jpg'" alt="your image" />
             </div>
             <input type="file" class="file-input"  (change)="uploadFile($event)" #fileUpload>
             <button *ngIf="userWantsToUpdate" mat-mini-fab class="action-fab-btn add-photo-btn"
