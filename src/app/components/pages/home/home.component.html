@@ -82,11 +82,10 @@
 
             <ng-container *ngFor="let location of filteredLocations">
                 <mat-accordion *ngIf="!isLoading" class="example-headers-align d-flex justify-content-center align-items-center mb-4" multi>
-                    <div class="col-2 me-1">
                         <mat-card class="header-image-card hover-underline-animation" (click)="seeMore(location!!)">
                             <img class="location-header-image" src="{{ location.headerImage }}">
                         </mat-card>
-                    </div>
+                    
                     <div class="col-8">
                         <mat-expansion-panel class="mb-3">
                             <mat-expansion-panel-header class="location-header">

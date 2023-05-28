@@ -18,7 +18,7 @@ export class ImageService {
     return this.httpClient.post(this.reqPath + "/UpdateImage", image);
   }
 
-  getImages(type: string, id: number): Observable<string[]> {
+  getImages(type: string, id: number | undefined): Observable<string[]> {
     console.log(this.reqPath + "/GetImages/" + type + "/" + id);
 
     console.log(this.httpClient.get<string[]>(this.reqPath + "/GetImages/" + type + "/" + id));

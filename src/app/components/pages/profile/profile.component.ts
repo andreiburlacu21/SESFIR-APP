@@ -11,6 +11,7 @@ import { ReviewService } from 'src/app/services/review-service/review.service';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { Action } from 'src/app/utils/interceptor/admin-actions';
 import { AuthenticationService } from 'src/app/services/authentication-service/authentication.service';
+import { ImageService } from 'src/app/services/image-service/image.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,18 +26,21 @@ export class ProfileComponent implements OnInit {
   userWantsToUpdate: boolean = false;
   myReviews: ReviewEntity[] = [];
   myBookings: BookingWithEntities[] = [];
-
+  imageLink!: string | null | ArrayBuffer;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   usernameFormControl = new FormControl('', [Validators.required]);
   phoneNumberFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
+  uploadedImage!: File;
+  imageSelected: boolean = false;
 
   constructor(
     private readonly notificationService: NotificationService,
     private readonly accountService: AccountService,
     private readonly authService: AuthenticationService,
     private readonly bookingService: BookingService,
+    private readonly imageService: ImageService,
     private readonly reviewService: ReviewService,
     private readonly dialog: MatDialog
   ) { }
@@ -47,10 +51,10 @@ export class ProfileComponent implements OnInit {
 
   loadMyData() {
     this.isLoading = true;
-
     this.accountService.getMyData().subscribe({
       next: resp => {
         this.account = resp;
+        this.setProfilePicture();
         this.setCurrentAccountInfoInCaseUserWantsToEdit();
         this.getAllReviews();
         this.getAllBookings();
@@ -67,6 +71,17 @@ export class ProfileComponent implements OnInit {
     this.emailFormControl.setValue(this.account.email!);
     this.usernameFormControl.setValue(this.account.userName!);
     this.phoneNumberFormControl.setValue(this.account.phoneNumber!);
+  }
+
+  private setProfilePicture(){
+    this.imageService.getImages("Profile", this.account.accountId).subscribe({
+      next: resp => {
+        this.imageLink = resp[0];
+      },
+      error: () => {
+        //this.notificationService.showErrorNotification("There was a problem loading your data!");
+      }
+    });
   }
 
   private getAllReviews() {
@@ -104,6 +119,7 @@ export class ProfileComponent implements OnInit {
 
   discardChanges(): void {
     this.userWantsToUpdate = false;
+    this.imageLink = null;
   }
 
   saveChanges(): void {
@@ -117,7 +133,7 @@ export class ProfileComponent implements OnInit {
     newAccount.password = this.account.password;
     newAccount.role = this.account.role;
     
-    // TODO: add profile image saving if is the case
+    this.addProfilePicture();
 
     if (newAccount.email !== "" && newAccount.userName !== "" && newAccount.phoneNumber !== "") {
       this.accountService.updateAccount(newAccount).subscribe({
@@ -175,7 +191,32 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  addProfilePicture(): void {
-    // TODO: add profile picture
+  uploadFile(event: any) {
+    this.uploadedImage = event.target.files[0];
+    this.imageSelected = true;
+
+    const reader = new FileReader();
+    reader.onload = e => this.imageLink = reader.result;
+
+    reader.readAsDataURL(this.uploadedImage);
+
   }
+
+
+  addProfilePicture(): void {
+    const formData = new FormData();
+    
+    formData.append("file", this.uploadedImage);
+    formData.append("id", this.account.accountId?.toString() ?? "0");
+    formData.append("type", "Profile");
+    this.imageService.uploadImage(formData).subscribe({
+      next: () => {
+        this.notificationService.showSuccessNotification("Image uploaded!");
+      },
+      error: err => {
+        this.notificationService.showErrorNotification("Upload failed!");
+      }
+    });
+  }
+
 }
