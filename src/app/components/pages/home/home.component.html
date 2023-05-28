@@ -61,7 +61,7 @@
                 <input matInput [(ngModel)]="searchInputByName" (keyup)="searchByName()">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
-            
+
             <label class="col-1 search-label mb-3 ms-5"> or </label>
 
             <mat-form-field class="search-input-field" appearance="outline">
@@ -81,11 +81,12 @@
             </div>
 
             <ng-container *ngFor="let location of filteredLocations">
-                <mat-accordion *ngIf="!isLoading" class="example-headers-align d-flex justify-content-center align-items-center mb-4" multi>
-                        <mat-card class="header-image-card hover-underline-animation" (click)="seeMore(location!!)">
-                            <img class="location-header-image" src="{{ location.headerImage }}">
-                        </mat-card>
-                    
+                <mat-accordion *ngIf="!isLoading"
+                    class="example-headers-align d-flex justify-content-center align-items-center mb-4" multi>
+                    <mat-card class="header-image-card hover-underline-animation me-3" (click)="seeMore(location!!)">
+                        <img class="location-header-image" src="{{ location.headerImage }}">
+                    </mat-card>
+
                     <div class="col-8">
                         <mat-expansion-panel class="mb-3">
                             <mat-expansion-panel-header class="location-header">
@@ -96,24 +97,26 @@
                                 <mat-panel-description>
                                     {{ location.pricePerHour }} RON / 1 day
                                 </mat-panel-description>
-        
-                                <app-star-rating class="mt-3 me-2" [rating]="calculateLocationRating(location.locationId!!)"
+
+                                <app-star-rating class="mt-3 me-2"
+                                    [rating]="calculateLocationRating(location.locationId!!)"
                                     [readonly]="true"></app-star-rating>
                             </mat-expansion-panel-header>
-        
+
                             <div class="row d-flex align-items-center">
                                 <p class="col-5 ms-1 mt-2">{{ location.address }}</p>
-                                <button class="primary-action-btn ms-auto justify-content-center" (click)="seeMore(location!!)">
+                                <button class="primary-action-btn ms-auto justify-content-center"
+                                    (click)="seeMore(location!!)">
                                     See more
                                 </button>
                             </div>
                         </mat-expansion-panel>
                     </div>
-                   
+
                 </mat-accordion>
             </ng-container>
 
-            
+
         </mat-card>
     </div>
 </div>

@@ -1,4 +1,91 @@
-<div class="row d-flex justify-content-center mt-5">
+<div *ngIf="userWantsToEnterAsGuest">
+    <div class="row d-flex justify-content-center">
+        <mat-card class="col-2 mt-3 me-1">
+            <h3>You are using the app in guest mode!</h3>
+            <div class="row d-flex align-items-center">
+                <button class="col-2 pb-1 login-btn-guest secondary-action-btn pt-1 pb-1 ms-2" (click)="guestWantsToLogIn()"> Log in </button>
+                <span class="col-8"> to unlock the full experience of Sesfir </span>
+            </div>
+        </mat-card>
+
+        <mat-card class="col-8 mt-3 d-flex justify-content-center align-items-center">
+
+            <label class="col-1 search-label mb-3">Search: </label>
+
+            <mat-form-field class="search-input-field" appearance="outline">
+                <mat-label>By name</mat-label>
+                <input matInput [(ngModel)]="searchInputByName" (keyup)="searchByName()">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+
+            <label class="col-1 search-label mb-3 ms-5"> or </label>
+
+            <mat-form-field class="search-input-field" appearance="outline">
+                <mat-label>By address</mat-label>
+                <input matInput [(ngModel)]="searchInputByAddress" (keyup)="searchByAddress()">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+
+            <button class="col-1 clear-btn primary-text mb-3 hover-underline-animation" (click)="clearFilters()">
+                Clear filters
+            </button>
+        </mat-card>
+
+        <mat-card class="locations-container col-10 mt-2">
+            <div *ngIf="isGuestHomePageLoading" class="h-100 m-0 p-0 d-flex justify-content-center align-items-center">
+                <mat-spinner [diameter]="50" class="loading-spinner"></mat-spinner>
+            </div>
+
+            <ng-container *ngFor="let location of filteredLocations">
+                <mat-accordion *ngIf="!isGuestHomePageLoading"
+                    class="example-headers-align d-flex justify-content-center align-items-center mb-4" multi>
+                    <mat-card class="header-image-card hover-underline-animation me-3" (click)="seeMore(location!!)">
+                        <img class="location-header-image" src="{{ location.headerImage }}">
+                    </mat-card>
+
+                    <div class="col-8">
+                        <mat-expansion-panel class="mb-3">
+                            <mat-expansion-panel-header class="location-header">
+                                <mat-panel-title class="mt-4 mb-4">
+                                    <mat-icon class="me-2">location_on</mat-icon>
+                                    {{ location.locationName }}
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    {{ location.pricePerHour }} RON / 1 day
+                                </mat-panel-description>
+
+                                <app-star-rating class="mt-3 me-2"
+                                    [rating]="calculateLocationRating(location.locationId!!)"
+                                    [readonly]="true"></app-star-rating>
+                            </mat-expansion-panel-header>
+
+                            <div class="row d-flex align-items-center">
+                                <p class="col-5 ms-1 mt-2">{{ location.address }}</p>
+                            </div>
+                        </mat-expansion-panel>
+                    </div>
+
+                </mat-accordion>
+            </ng-container>
+
+
+        </mat-card>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div *ngIf="!userWantsToEnterAsGuest" class="row d-flex justify-content-center mt-5">
     <div class="col-5">
         <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="m-0 p-0"></mat-progress-bar>
 
@@ -27,6 +114,8 @@
                         New to Sesfir?
                     </div>
                     <button class="col-12 register-btn secondary-action-btn" (click)="userWantsToRegister()"> Create an account </button>
+                    <div class="row mt-2 mb-2 justify-content-center"></div>
+                    <button class="col-2 let-in-as-guest-btn primary-text hover-underline-animation" (click)="letMeInAsAGuest()"> Let me in as a guest </button>
                 </div>
             </form>
         </mat-card>

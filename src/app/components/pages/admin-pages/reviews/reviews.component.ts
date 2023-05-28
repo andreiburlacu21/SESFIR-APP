@@ -30,24 +30,29 @@ export class ReviewsComponent implements OnInit {
     this.reviewsService.getAllReviews().subscribe({
       next: resp => {
         this.reviews = resp;
+
         let reviewsLoaded: number = 0;
-        this.reviews.forEach(review => {
-          this.reviewsService.getReviewEntityById(review.reviewId!!).subscribe({
-            next: resp => {
-              review.reviewEntity = resp;
-              reviewsLoaded++;
 
-              if(reviewsLoaded === this.reviews.length) {
+        if (this.reviews.length === 0) {
+          this.isLoading = false;
+        } else {
+          this.reviews.forEach(review => {
+            this.reviewsService.getReviewEntityById(review.reviewId!!).subscribe({
+              next: resp => {
+                review.reviewEntity = resp;
+                reviewsLoaded++;
+
+                if (reviewsLoaded === this.reviews.length) {
+                  this.isLoading = false;
+                }
+              },
+              error: () => {
                 this.isLoading = false;
+                this.notificationService.showErrorNotification("There was an error while a review's data!");
               }
-            },
-            error: () => {
-              this.isLoading = false;
-              this.notificationService.showErrorNotification("There was an error while a review's data!");
-            }
+            });
           });
-        });
-
+        }
       },
       error: () => {
         this.isLoading = false;
@@ -84,9 +89,9 @@ export class ReviewsComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(updatedReview => {
-      if(updatedReview.data) {
+      if (updatedReview.data) {
         this.reviewsService.updateReview(updatedReview.data).subscribe(resp => {
-          if(resp) {
+          if (resp) {
             this.notificationService.showSuccessNotification("Review updated!");
             console.log(resp);
             this.getAllReviews();
@@ -101,14 +106,14 @@ export class ReviewsComponent implements OnInit {
       width: '500px',
       data: {
         action: Action.DELETE,
-        review:  review
+        review: review
       }
     })
 
     dialogRef.afterClosed().subscribe(reviewId => {
-      if(reviewId.data) {
+      if (reviewId.data) {
         this.reviewsService.deleteReview(reviewId.data).subscribe(resp => {
-          if(resp) {
+          if (resp) {
             this.notificationService.showSuccessNotification("Review deleted!");
             this.getAllReviews();
           }

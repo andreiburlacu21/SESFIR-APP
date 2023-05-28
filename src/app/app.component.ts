@@ -11,9 +11,11 @@ import { NotificationService } from './services/notification-service/notificatio
 })
 
 export class AppComponent {
+  userWantsToBeInAsGuest: boolean = false;
   title = 'SESFIR';
   openSideMenu: boolean = false;
   isUserLoggedId: boolean = false;
+  userWantsToBeGuest: boolean = false;
   theme: string = 'LIGHT';
   hideSidenav: boolean = false;
 
