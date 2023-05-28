@@ -28,14 +28,3 @@
 .card-bg-color {
     background-color: rgb(255,255,255) !important;
 }
-
-.history-card {
-    background-color: rgb(255,255,255) !important;
-    transition: all .2s ease-in-out; 
-}
-
-.history-card:hover {
-    background-color: rgb(250, 250, 250) !important;
-    cursor: pointer;
-    transform: scale(1.01); 
-}

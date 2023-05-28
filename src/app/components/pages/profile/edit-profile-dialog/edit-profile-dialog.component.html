@@ -1,7 +1,7 @@
 <div class="dialog-container">
     <h1 mat-dialog-title> {{ action }} account</h1>
 
-    <!-- USER WANTS TO EDIT -->
+    <!-- ADMIN WANTS TO UPDATE -->
     <div mat-dialog-content *ngIf="action === 'Edit'">
         <div class="row justify-content-center">
             <mat-form-field appearance="outline">
@@ -31,40 +31,30 @@
                 </mat-error>
             </mat-form-field>
         </div>
-
-        <div class="d-flex mt-2" *ngIf="action === 'Edit'">
-            <button mat-dialog-close class="primary-action-btn action-btn align-items-center ps-2 pe-2">
-                Cancel
-            </button>
-            <button class="primary-action-btn delete-btn ms-auto" 
-            [ngClass]="eneteredPassword === account.password ? 'hover-underline-animation' : ''"
-            [disabled]="eneteredPassword !== account.password" (click)="changePassword()">
-                Change password
-            </button>
-        </div>
     </div>
 
-    <!-- USER WANTS TO DELETE -->
+    <!-- ADMIN WANTS TO DELETE -->
     <div mat-dialog-content *ngIf="action === 'Delete'" class="mb-3">
         <p> Are you sure you want to delete your account? </p>
 
-        <p> <span class="warining-text"> WARNING: </span> this action cannot be undone! </p>
+        <p> <span class="warining-text"> WARNING: </span> this action can not be undone! </p>
+
 
         <div class="row justify-content-center">
             <mat-form-field appearance="outline">
                 <mat-label> Enter your password </mat-label>
-                <input matInput type="password" required [(ngModel)]="eneteredPassword" (keyup)="typePassword(eneteredPassword)">
+                <input matInput required type="password" [formControl]="passwordFormControl">
+                <mat-error *ngIf="passwordFormControl.hasError('required')"> Your password is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
         </div>
     </div>
 
     <div class="d-flex" *ngIf="action === 'Delete'">
-        <button mat-dialog-close class="primary-action-btn action-btn align-items-center ps-2 pe-2">
+        <button mat-dialog-close class="primary-action-btn action-btn cancel-btn align-items-center ps-2 pe-2">
             Cancel
         </button>
-        <button class="primary-action-btn delete-btn ms-auto warining-text" 
-        [ngClass]="eneteredPassword === account.password ? 'hover-underline-animation' : ''"
-        [disabled]="eneteredPassword !== account.password" (click)="deleteAccount()">
+        <button class="primary-action-btn delete-btn ms-auto warining-text hover-underline-animation" (click)="deleteAccount()">
             Delete
         </button>
     </div>

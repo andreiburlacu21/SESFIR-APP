@@ -29,25 +29,13 @@
     border: none;
 }
 
-.discard-btn {
-    width: 10.5%;
-    height: 50%;
-    background-color: transparent !important;
-    border: none;
-}
-
-.save-btn {
-    width: 9.5%;
-    height: 50%;
-    background-color: transparent !important;
-    border: none;
-}
-
 .change-password-btn {
+    background-color: #4885BA !important;
+    color: white;
     border: none;
-    background-color: transparent !important;
+    border-radius: 10px;
     padding: 10px;
-    margin-right: 5px;
+    margin-left: -2px;
 }
 
 .delete-account-btn {

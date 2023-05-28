@@ -19,46 +19,32 @@ export class EditProfileDialogComponent implements OnInit {
   usernameFormControl = new FormControl('', [Validators.required]);
   phoneNumberFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required]);
-
-
-
-
-  eneteredPassword: string = "";
+  confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private readonly notificationService: NotificationService,
     public dialogRef: MatDialogRef<AccountDialogComponent>) { }
 
-  ngOnInit(): void {
-    this.getPassedData();
-  }
-
-  private getPassedData() {
-    this.action = this.data.action;
-
-
-    if (this.action !== Action.UPDATE) {
-      // this.account = this.data.account;
+    ngOnInit(): void {
+      this.getPassedData();
+    }
+  
+    private getPassedData() {
+      this.action = this.data.action;
+      if (this.action !== Action.ADD) {
+        // this.account = this.data.account;
+      }
+  
+      if(this.action === Action.UPDATE) {
+        // this.emailFormControl.setValue(this.account.email!!);
+        // this.usernameFormControl.setValue(this.account.userName!!);
+        // this.phoneNumberFormControl.setValue(this.account.phoneNumber!!);
+        // this.passwordFormControl.setValue(this.account.password!!);
+      }
     }
 
-    if (this.action === Action.DELETE) {
-      this.account = this.data.account;
-      // this.emailFormControl.setValue(this.account.email!!);
-      // this.usernameFormControl.setValue(this.account.userName!!);
-      // this.phoneNumberFormControl.setValue(this.account.phoneNumber!!);
-      // this.passwordFormControl.setValue(this.account.password!!);
+
+    deleteAccount(): void {
+
     }
-  }
-
-  typePassword(eneteredPassword: string) {
-    this.eneteredPassword = eneteredPassword;
-  }
-
-  deleteAccount(): void {
-    this.dialogRef.close({ event: 'Delete', data: this.account.accountId })
-  }
-
-  changePassword(): void {
-    
-  }
 }
