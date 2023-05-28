@@ -108,7 +108,29 @@ export class ProfileComponent implements OnInit {
 
   saveChanges(): void {
     this.userWantsToUpdate = false;
-    // TODO: update account info in the db
+
+    let newAccount: Account = new Account();
+    newAccount = this.account;
+    newAccount.email = this.emailFormControl.getRawValue() ?? "";
+    newAccount.userName = this.usernameFormControl.getRawValue() ?? "";
+    newAccount.phoneNumber = this.phoneNumberFormControl.getRawValue() ?? "";
+    newAccount.password = this.account.password;
+    newAccount.role = this.account.role;
+    
+    // TODO: add profile image saving if is the case
+
+    if (newAccount.email !== "" && newAccount.userName !== "" && newAccount.phoneNumber !== "") {
+      this.accountService.updateAccount(newAccount).subscribe({
+        next: resp => {
+          this.account = resp;
+          this.notificationService.showSuccessNotification("Changes were saved!");
+        },
+        error: err => {
+          console.log(err);
+          this.notificationService.showErrorNotification("There was an error saving your changes!");
+        }
+      });
+    }
   }
 
   changePassword(): void {
@@ -145,7 +167,7 @@ export class ProfileComponent implements OnInit {
         this.accountService.deleteAccount(accountId.data).subscribe(resp => {
           if (resp) {
             this.notificationService.showSuccessNotification("Sorry to see you go!");
-            
+
             this.authService.logOut();
           }
         });
