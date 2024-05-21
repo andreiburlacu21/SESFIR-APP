@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: "https://localhost:7226/SESFIR/",
+  apiBaseUrl: "https://sesfir-b0ec78015824.herokuapp.com/SESFIR/",
   isAdmin: false,
   theme: 'LIGHT',
   hideSidenav: false,
